@@ -12,7 +12,7 @@ function App() {
     ]
 
     let tasks2: Array<TaskType> = [
-        {id: 1, title: "The Notebook", isDone: true},
+        {id: 1, title: "The Notebook", isDone: false},
         {id: 2, title: "The Great Gatsby", isDone: true},
         {id: 3, title: "The Age of Adaline", isDone: true}
     ]
