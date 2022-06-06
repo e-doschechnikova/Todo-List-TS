@@ -33,9 +33,12 @@ export function Todolist(props: PropsType) {
     }
   };
 
-  const allChangeFilterHandler = () => props.changeFilter("all");
-  const activeChangeFilterHandler = () => props.changeFilter("active");
-  const completedChangeFilterHandler = () => props.changeFilter("completed");
+  const tsarChangeFilterHandler = (value: FilterValuesType) => {
+    props.changeFilter(value);
+  };
+  //   const allChangeFilterHandler = () => props.changeFilter("all");
+  //   const activeChangeFilterHandler = () => props.changeFilter("active");
+  //   const completedChangeFilterHandler = () => props.changeFilter("completed");
 
   return (
     <div>
@@ -64,9 +67,16 @@ export function Todolist(props: PropsType) {
         ))}
       </ul>
       <div>
-        <button onClick={allChangeFilterHandler}>All</button>
+        <button onClick={() => tsarChangeFilterHandler("all")}>All</button>
+        <button onClick={() => tsarChangeFilterHandler("active")}>
+          Active
+        </button>
+        <button onClick={() => tsarChangeFilterHandler("completed")}>
+          Completed
+        </button>
+        {/* <button onClick={allChangeFilterHandler}>All</button>
         <button onClick={activeChangeFilterHandler}>Active</button>
-        <button onClick={completedChangeFilterHandler}>Completed</button>
+        <button onClick={completedChangeFilterHandler}>Completed</button> */}
       </div>
     </div>
   );
