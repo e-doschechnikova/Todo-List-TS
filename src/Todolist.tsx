@@ -13,7 +13,7 @@ type PropsType = {
   removeTask: (taskId: string) => void;
   changeFilter: (value: FilterValuesType) => void;
   addTask: (title: string) => void;
-  changeCheckBox: (value: boolean) => void;
+  changeCheckBox: (id: string, value: boolean) => void;
 };
 
 export function Todolist(props: PropsType) {
@@ -38,8 +38,13 @@ export function Todolist(props: PropsType) {
   const onActiveClickHandler = () => props.changeFilter("active");
   const onCompletedClickHandler = () => props.changeFilter("completed");
 
-  const changeCheckBoxHandler = (event: ChangeEvent<HTMLInputElement>) =>
-    props.changeCheckBox(event.currentTarget.checked);
+  // const changeCheckBoxHandler = (
+  //   tID: string,
+  //   event: ChangeEvent<HTMLInputElement>
+  // ) => props.changeCheckBox(tID, event.currentTarget.checked);
+
+  const changeCheckBoxHandler = (tID: string, eventValue: boolean) =>
+    props.changeCheckBox(tID, eventValue);
 
   return (
     <div>
@@ -61,7 +66,9 @@ export function Todolist(props: PropsType) {
               <input
                 type="checkbox"
                 checked={t.isDone}
-                onChange={changeCheckBoxHandler}
+                onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                  changeCheckBoxHandler(t.id, event.currentTarget.checked)
+                }
               />
               <span>{t.title}</span>
               <button onClick={onClickHandler}>x</button>
