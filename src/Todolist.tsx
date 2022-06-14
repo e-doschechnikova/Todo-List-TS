@@ -15,10 +15,11 @@ type PropsType = {
   changeFilter: (value: FilterValuesType) => void;
   addTask: (title: string) => void;
   changeCheckBox: (id: string, value: boolean) => void;
+  filter: FilterValuesType;
 };
 
 export function Todolist(props: PropsType) {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   let [title, setTitle] = useState("");
 
   const addTask = () => {
@@ -26,7 +27,7 @@ export function Todolist(props: PropsType) {
       props.addTask(title.trim());
       setTitle("");
     } else {
-      setError(true);
+      setError("Title is requred");
     }
   };
 
@@ -55,14 +56,14 @@ export function Todolist(props: PropsType) {
           onKeyPress={onKeyPressHandler}
         />
         <button onClick={addTask}>+</button>
-        {error && <div className={styles.errorMessage}>Title is requred</div>}
+        {error && <div className={styles.errorMessage}>{error}</div>}
       </div>
       <ul>
         {props.tasks.map((t) => {
           const onClickHandler = () => props.removeTask(t.id);
 
           return (
-            <li key={t.id}>
+            <li key={t.id} className={t.isDone ? styles.isDone : ""}>
               <input
                 type="checkbox"
                 checked={t.isDone}
@@ -77,9 +78,24 @@ export function Todolist(props: PropsType) {
         })}
       </ul>
       <div>
-        <button onClick={onAllClickHandler}>All</button>
-        <button onClick={onActiveClickHandler}>Active</button>
-        <button onClick={onCompletedClickHandler}>Completed</button>
+        <button
+          className={props.filter === "all" ? styles.activeFilter : ""}
+          onClick={onAllClickHandler}
+        >
+          All
+        </button>
+        <button
+          className={props.filter === "active" ? styles.activeFilter : ""}
+          onClick={onActiveClickHandler}
+        >
+          Active
+        </button>
+        <button
+          className={props.filter === "completed" ? styles.activeFilter : ""}
+          onClick={onCompletedClickHandler}
+        >
+          Completed
+        </button>
       </div>
     </div>
   );

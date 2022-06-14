@@ -5,3 +5,11 @@
 .errorMessage {
   color: red;
 }
+
+.activeFilter {
+  background-color: #989aad;
+}
+
+.isDone {
+  opacity: 0.5;
+}
