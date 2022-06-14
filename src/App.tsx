@@ -14,8 +14,10 @@ function App() {
     { id: v1(), title: "GraphQL", isDone: false },
   ]);
 
-  const changeCheckBox = (id: string, value: boolean) => {
-    // setTasks(tID);
+  const changeCheckBox = (taskID: string, value: boolean) => {
+    setTasks(
+      tasks.map((el) => (el.id === taskID ? { ...el, isDone: value } : el))
+    );
   };
 
   function removeTask(id: string) {
