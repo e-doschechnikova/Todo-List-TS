@@ -1,5 +1,6 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from "react";
 import { FilterValuesType } from "./App";
+import { CheckBox } from "./components/CheckBox";
 import styles from "./Todolist.module.css";
 
 type TaskType = {
@@ -64,13 +65,14 @@ export function Todolist(props: PropsType) {
 
           return (
             <li key={t.id} className={t.isDone ? styles.isDone : ""}>
-              <input
+              <CheckBox checked={t.isDone} />
+              {/* <input
                 type="checkbox"
                 checked={t.isDone}
                 onChange={(event: ChangeEvent<HTMLInputElement>) =>
                   changeCheckBoxHandler(t.id, event.currentTarget.checked)
                 }
-              />
+              /> */}
               <span>{t.title}</span>
               <button onClick={onClickHandler}>x</button>
             </li>
