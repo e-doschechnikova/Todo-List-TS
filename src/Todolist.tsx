@@ -65,7 +65,10 @@ export function Todolist(props: PropsType) {
 
           return (
             <li key={t.id} className={t.isDone ? styles.isDone : ""}>
-              <CheckBox checked={t.isDone} />
+              <CheckBox
+                checked={t.isDone}
+                callback={() => changeCheckBoxHandler}
+              />
               {/* <input
                 type="checkbox"
                 checked={t.isDone}
