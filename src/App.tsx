@@ -46,10 +46,10 @@ function App() {
   });
 
   const removeTask = (taskID: string, todolistID: string) => {
-
-    const copyTasks = { ...tasks };
-    copyTasks[todolistID] = tasks[todolistID].filter((t) => t.id !== taskID); //2
-    
+    setTasks({
+      ...tasks,
+      todolistID: tasks[todolistID].filter((t) => t.id !== taskID),
+    });
   };
 
   const addTask = (title: string, todolistID: string) => {
@@ -59,9 +59,7 @@ function App() {
       isDone: false,
     };
 
-    const copyTasks = { ...tasks };
-    copyTasks[todolistID] = [newTask, ...tasks[todolistID]];
-    setTasks(copyTasks);
+    setTasks({ ...tasks, todolistID: [newTask, ...tasks[todolistID]] });
   };
 
   const changeTaskStatus = (
@@ -69,14 +67,14 @@ function App() {
     isDone: boolean,
     todolistID: string
   ) => {
-    const copyTasks = { ...tasks };
-    copyTasks[todolistID] = copyTasks[todolistID].map((t) =>
-      t.id === taskID ? { ...t, isDone: isDone } : t
-    );
-    setTasks(copyTasks);
-  };
-
-  const changeTodoListFilter = (filter: FilterValuesType, todolistID: string) => {
+    setTasks({...tasks,todolistID:tasks[todolistID].map((t) =>
+    t.id === taskID ? { ...t, isDone: isDone } : t
+  )});
+  
+  const changeTodoListFilter = (
+    filter: FilterValuesType,
+    todolistID: string
+  ) => {
     setFilter(filter);
   };
 
