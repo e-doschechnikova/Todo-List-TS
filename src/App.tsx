@@ -48,7 +48,7 @@ function App() {
   const removeTask = (taskID: string, todolistID: string) => {
     setTasks({
       ...tasks,
-      todolistID: tasks[todolistID].filter((t) => t.id !== taskID),
+      [todolistID]: tasks[todolistID].filter((t) => t.id !== taskID),
     });
   };
 
@@ -59,7 +59,7 @@ function App() {
       isDone: false,
     };
 
-    setTasks({ ...tasks, todolistID: [newTask, ...tasks[todolistID]] });
+    setTasks({ ...tasks, [todolistID]: [newTask, ...tasks[todolistID]] });
   };
 
   const changeTaskStatus = (
@@ -67,9 +67,11 @@ function App() {
     isDone: boolean,
     todolistID: string
   ) => {
+    console.log("todoListID :>> ", todolistID);
+    console.log("tasks :>> ", tasks);
     setTasks({
       ...tasks,
-      todolistID: tasks[todolistID].map((t) =>
+      [todolistID]: tasks[todolistID].map((t) =>
         t.id === taskID ? { ...t, isDone: isDone } : t
       ),
     });
@@ -107,13 +109,16 @@ function App() {
 
     return (
       <TodoList
+        key={tl.id}
+        id={tl.id}
         title={tl.title}
+        filter={tl.filter}
         tasks={tasksForRender}
         addTask={addTask}
-        filter={tl.filter}
         removeTask={removeTask}
         changeTodoListFilter={changeTodoListFilter}
         changeTaskStatus={changeTaskStatus}
+        removeTodolist={removeTodolist}
       />
     );
   });
