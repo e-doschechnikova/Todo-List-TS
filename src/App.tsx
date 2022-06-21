@@ -67,44 +67,58 @@ function App() {
     isDone: boolean,
     todolistID: string
   ) => {
-    setTasks({...tasks,todolistID:tasks[todolistID].map((t) =>
-    t.id === taskID ? { ...t, isDone: isDone } : t
-  )});
-  
+    setTasks({
+      ...tasks,
+      todolistID: tasks[todolistID].map((t) =>
+        t.id === taskID ? { ...t, isDone: isDone } : t
+      ),
+    });
+  };
+
   const changeTodoListFilter = (
     filter: FilterValuesType,
     todolistID: string
   ) => {
-    setFilter(filter);
+    setTodolists(
+      todolists.map((tl) =>
+        tl.id === todolistID ? { ...tl, filter: filter } : tl
+      )
+    );
   };
 
-  let tasksForRender;
-  switch (filter) {
-    case "active":
-      tasksForRender = tasks.filter((t) => !t.isDone);
-      break;
-    case "completed":
-      tasksForRender = tasks.filter((t) => t.isDone);
-      break;
-    default:
-      tasksForRender = tasks;
-  }
+  const removeTodolist = (todolistID: string) => {
+    setTodolists(todolists.filter((tl) => tl.id !== todolistID));
+    delete tasks[todolistID];
+  };
 
   //UI:
-  return (
-    <div className="App">
+  const todolistsComponents = todolists.map((tl) => {
+    let tasksForRender;
+    switch (tl.filter) {
+      case "active":
+        tasksForRender = tasks[tl.id].filter((t) => !t.isDone);
+        break;
+      case "completed":
+        tasksForRender = tasks[tl.id].filter((t) => t.isDone);
+        break;
+      default:
+        tasksForRender = tasks[tl.id];
+    }
+
+    return (
       <TodoList
-        title={"What to do"}
+        title={tl.title}
         tasks={tasksForRender}
         addTask={addTask}
-        filter={filter}
+        filter={tl.filter}
         removeTask={removeTask}
         changeTodoListFilter={changeTodoListFilter}
         changeTaskStatus={changeTaskStatus}
-        setLastState={setLastState}
       />
-    </div>
-  );
+    );
+  });
+
+  return <div className="App">{todolistsComponents}</div>;
 }
 
 export default App;
