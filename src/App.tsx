@@ -3,7 +3,6 @@ import "./App.css";
 import TodoList, { TaskType } from "./TodoList";
 import { v1 } from "uuid";
 
-
 // CRUD
 // create +
 // read ++
@@ -67,8 +66,6 @@ function App() {
     isDone: boolean,
     todolistID: string
   ) => {
-    console.log("todoListID :>> ", todolistID);
-    console.log("tasks :>> ", tasks);
     setTasks({
       ...tasks,
       [todolistID]: tasks[todolistID].map((t) =>
@@ -91,6 +88,17 @@ function App() {
   const removeTodolist = (todolistID: string) => {
     setTodolists(todolists.filter((tl) => tl.id !== todolistID));
     delete tasks[todolistID];
+  };
+
+  const addTodoList = (title: string) => {
+    const newTodoListID = v1();
+    const newTodoList: TodoListType = {
+      id: newTodoListID,
+      title: title,
+      filter: "all",
+    };
+    setTodolists([newTodoList, ...todolists]);
+    setTasks({ ...tasks, [newTodoListID]: [] });
   };
 
   //UI:

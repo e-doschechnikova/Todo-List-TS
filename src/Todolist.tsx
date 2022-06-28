@@ -1,4 +1,5 @@
 import React, { useState, KeyboardEvent, ChangeEvent } from "react";
+import { AddItemForm } from "./AddItemForm";
 import { FilterValuesType } from "./App";
 import { Button } from "./components/Button";
 // rsc
@@ -25,9 +26,6 @@ type TodoListPropsType = {
 };
 
 const TodoList = (props: TodoListPropsType) => {
-  const [title, setTitle] = useState<string>("");
-  const [error, setError] = useState<boolean>(false);
-
   const tasksJSX = props.tasks.length ? (
     props.tasks.map((t) => {
       const removeTask = () => props.removeTask(t.id, props.id);
@@ -54,38 +52,16 @@ const TodoList = (props: TodoListPropsType) => {
     return () => props.changeTodoListFilter(filter, props.id);
   };
 
-  const addTask = () => {
-    const trimmedTitle = title.trim();
-    if (trimmedTitle) {
-      props.addTask(trimmedTitle, props.id);
-    } else {
-      setError(true);
-    }
-    setTitle("");
-  };
-
-  const onKeyDownAddTask = (e: KeyboardEvent<HTMLInputElement>) =>
-    e.key === "Enter" && addTask();
-
-  const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value);
-    error && setError(false);
+  const addTask = (title: string) => {
+    props.addTask(title, props.id);
   };
 
   return (
     <div>
       <h3>{props.title}</h3>
       <button onClick={() => props.removeTodolist(props.id)}>del</button>
-      <div>
-        <input
-          value={title}
-          onChange={onChangeSetTitle}
-          onKeyDown={onKeyDownAddTask}
-          className={error ? "error" : ""}
-        />
-        <button onClick={addTask}>+</button>
-        {error && <div style={{ color: "red" }}>Title is required!</div>}
-      </div>
+      <AddItemForm addItem={addTask} />
+
       <ul>{tasksJSX}</ul>
       <div>
         <button
