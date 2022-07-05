@@ -2,6 +2,7 @@ import React, { useState, KeyboardEvent, ChangeEvent } from "react";
 import { FilterValuesType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
+import { Button } from "@material-ui/core";
 // rsc
 export type TaskType = {
   id: string;
@@ -81,25 +82,31 @@ const TodoList = (props: TodoListPropsType) => {
       <AddItemForm addItem={addTask} />
       <ul>{tasksJSX}</ul>
       <div>
-        <button
-          className={props.filter === "all" ? "active" : ""}
+        <Button
+          size={"small"}
+          variant={"outlined"}
+          color={props.filter === "all" ? "secondary" : "primary"}
           onClick={createOnClickHandler("all")}
           /* onClick={() => props.changeTodoListFilter("all", props.id)}*/
         >
           All
-        </button>
-        <button
-          className={props.filter === "active" ? "active" : ""}
+        </Button>
+        <Button
+          size={"small"}
+          variant={"outlined"}
+          color={props.filter === "active" ? "secondary" : "primary"}
           onClick={createOnClickHandler("active")}
         >
           Active
-        </button>
-        <button
-          className={props.filter === "completed" ? "active" : ""}
+        </Button>
+        <Button
+          size={"small"}
+          variant={"outlined"}
+          color={props.filter === "completed" ? "secondary" : "primary"}
           onClick={createOnClickHandler("completed")}
         >
           Completed
-        </button>
+        </Button>
       </div>
     </div>
   );
