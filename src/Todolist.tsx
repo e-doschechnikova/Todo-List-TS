@@ -1,8 +1,9 @@
 import React, { useState, KeyboardEvent, ChangeEvent } from "react";
+import styles from "./Todolist.module.css";
 import { FilterValuesType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
-import { Button, IconButton } from "@material-ui/core";
+import { Button, Checkbox, IconButton } from "@material-ui/core";
 import { DeleteOutlineOutlined } from "@material-ui/icons";
 // rsc
 export type TaskType = {
@@ -49,9 +50,10 @@ const TodoList = (props: TodoListPropsType) => {
 
       return (
         <li key={t.id} className={t.isDone ? "task isDone" : "task"}>
-          <input
+          <Checkbox
+            size={"small"}
+            color={"primary"}
             onChange={changeTaskStatus}
-            type="checkbox"
             checked={t.isDone}
           />
           <EditableSpan title={t.title} changeTitle={changeTaskTitle} />
@@ -80,7 +82,9 @@ const TodoList = (props: TodoListPropsType) => {
     <div>
       <h3>
         <EditableSpan title={props.title} changeTitle={changeTodoListTitle} />
-        <button onClick={removeTodolist}>Del</button>
+        <IconButton>
+          <DeleteOutlineOutlined onClick={removeTodolist} />
+        </IconButton>
       </h3>
       <AddItemForm addItem={addTask} />
       <ul>{tasksJSX}</ul>

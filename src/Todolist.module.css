@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:wght@400;700&display=swap");
+
 .error {
   border: red 2px solid;
 }
@@ -13,5 +15,3 @@
 .isDone {
   opacity: 0.5;
 }
-
-

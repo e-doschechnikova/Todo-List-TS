@@ -1,3 +1,4 @@
+import { TextField } from "@material-ui/core";
 import React, { ChangeEvent, FC, useState, KeyboardEvent } from "react";
 
 type EditableSpanPropsType = {
@@ -29,7 +30,8 @@ export const EditableSpan: FC<EditableSpanPropsType> = ({
   };
 
   return editMode ? (
-    <input
+    <TextField
+      color={"primary"}
       value={text}
       onChange={onChangeSetText}
       onKeyDown={onKeyDownChangeTitle}
