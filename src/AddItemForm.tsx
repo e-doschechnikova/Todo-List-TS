@@ -1,4 +1,4 @@
-import { IconButton } from "@material-ui/core";
+import { IconButton, TextField } from "@material-ui/core";
 import { AddOutlined } from "@material-ui/icons";
 import React, { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 
@@ -29,16 +29,19 @@ export const AddItemForm: FC<AddItemFormPropsType> = ({ addItem }) => {
 
   return (
     <div>
-      <input
+      <TextField
+        variant={"outlined"}
+        size={"small"}
         value={title}
         onChange={onChangeSetTitle}
         onKeyDown={onKeyDownAddItem}
-        className={error ? "error" : ""}
+        label={"Add title"}
+        error={error}
+        helperText={error && "Title is required!"}
       />
       <IconButton>
         <AddOutlined onClick={onClickAddItem} />
       </IconButton>
-      {error && <div style={{ color: "red" }}>Title is required!</div>}
     </div>
   );
 };
