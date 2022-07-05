@@ -3,7 +3,13 @@ import styles from "./Todolist.module.css";
 import { FilterValuesType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
-import { Button, Checkbox, IconButton } from "@material-ui/core";
+import {
+  Button,
+  Checkbox,
+  IconButton,
+  List,
+  ListItem,
+} from "@material-ui/core";
 import { DeleteOutlineOutlined } from "@material-ui/icons";
 // rsc
 export type TaskType = {
@@ -49,7 +55,13 @@ const TodoList = (props: TodoListPropsType) => {
       };
 
       return (
-        <li key={t.id} className={t.isDone ? "task isDone" : "task"}>
+        <ListItem
+          key={t.id}
+          className={t.isDone ? "task isDone" : "task"}
+          alignItems={"center"}
+          disableGutters={true}
+          divider={true}
+        >
           <Checkbox
             size={"small"}
             color={"primary"}
@@ -60,7 +72,7 @@ const TodoList = (props: TodoListPropsType) => {
           <IconButton>
             <DeleteOutlineOutlined onClick={removeTask} />
           </IconButton>
-        </li>
+        </ListItem>
       );
     })
   ) : (
@@ -87,13 +99,14 @@ const TodoList = (props: TodoListPropsType) => {
         </IconButton>
       </h3>
       <AddItemForm addItem={addTask} />
-      <ul>{tasksJSX}</ul>
+      <List style={{ listStyle: "none" }}>{tasksJSX}</List>
       <div>
         <Button
           size={"small"}
           variant={"outlined"}
           color={props.filter === "all" ? "secondary" : "primary"}
           onClick={createOnClickHandler("all")}
+          style={{ margin: "5px" }}
           /* onClick={() => props.changeTodoListFilter("all", props.id)}*/
         >
           All
@@ -103,6 +116,7 @@ const TodoList = (props: TodoListPropsType) => {
           variant={"outlined"}
           color={props.filter === "active" ? "secondary" : "primary"}
           onClick={createOnClickHandler("active")}
+          style={{ margin: "5px" }}
         >
           Active
         </Button>
@@ -111,6 +125,7 @@ const TodoList = (props: TodoListPropsType) => {
           variant={"outlined"}
           color={props.filter === "completed" ? "secondary" : "primary"}
           onClick={createOnClickHandler("completed")}
+          style={{ margin: "5px" }}
         >
           Completed
         </Button>

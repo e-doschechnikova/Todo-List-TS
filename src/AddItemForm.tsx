@@ -39,7 +39,7 @@ export const AddItemForm: FC<AddItemFormPropsType> = ({ addItem }) => {
         error={error}
         helperText={error && "Title is required!"}
       />
-      <IconButton>
+      <IconButton color={"secondary"}>
         <AddOutlined onClick={onClickAddItem} />
       </IconButton>
     </div>
