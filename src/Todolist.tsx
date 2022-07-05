@@ -2,7 +2,8 @@ import React, { useState, KeyboardEvent, ChangeEvent } from "react";
 import { FilterValuesType } from "./App";
 import { AddItemForm } from "./AddItemForm";
 import { EditableSpan } from "./EditableSpan";
-import { Button } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
+import { DeleteOutlineOutlined } from "@material-ui/icons";
 // rsc
 export type TaskType = {
   id: string;
@@ -54,7 +55,9 @@ const TodoList = (props: TodoListPropsType) => {
             checked={t.isDone}
           />
           <EditableSpan title={t.title} changeTitle={changeTaskTitle} />
-          <button onClick={removeTask}>х</button>
+          <IconButton>
+            <DeleteOutlineOutlined onClick={removeTask} />
+          </IconButton>
         </li>
       );
     })
