@@ -83,7 +83,7 @@ const TodoList = (props: TodoListPropsType) => {
       <h3>
         <EditableSpan title={props.title} changeTitle={changeTodoListTitle} />
         <IconButton>
-          <DeleteOutlineOutlined onClick={removeTodolist} />
+          <DeleteOutlineOutlined color={"primary"} onClick={removeTodolist} />
         </IconButton>
       </h3>
       <AddItemForm addItem={addTask} />

@@ -1,11 +1,12 @@
-.App {
+/* .App {
   padding: 30px;
   display: flex;
 }
 
 .App > div {
   margin-right: 50px;
-}
+} */
+
 .isDone {
   text-decoration: line-through;
   color: #555;
@@ -14,13 +15,13 @@
   font-weight: bold;
 }
 
-.active {
+/* .active {
   background-color: darksalmon;
   color: white;
   font-weight: bold;
-}
+} */
 
-.error {
+/* .error {
   border: 2px solid red;
   outline: none;
-}
+} */
