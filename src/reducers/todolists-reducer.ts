@@ -2,7 +2,7 @@ import { FilterValuesType } from "./../App";
 import { v1 } from "uuid";
 import { TodoListType } from "../App";
 
-///-----------type for action type -----------\\\
+///----------- type for action type -----------\\\
 
 type AddTodoListAT = {
   type: "ADD-TODOLIST";
