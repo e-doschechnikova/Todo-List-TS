@@ -15,16 +15,16 @@ type RemoveTodoListAT = {
   id: string;
 };
 
-export type ChangeTodoListFilterAT = {
-  type: "CHANGE-TODOLIST-FILTER";
-  id: string;
-  filter: FilterValuesType;
-};
-
 export type ChangeTodoListTitleAT = {
   type: "CHANGE-TODOLIST-TITLE";
   id: string;
   title: string;
+};
+
+export type ChangeTodoListFilterAT = {
+  type: "CHANGE-TODOLIST-FILTER";
+  id: string;
+  filter: FilterValuesType;
 };
 
 ///-------------------------------------------\\\
@@ -62,5 +62,30 @@ export const todolistsReducer = (
 
 export const RemoveTodoListAC = (id: string): RemoveTodoListAT => ({
   type: "REMOVE-TODOLIST",
-  id: id,
+  id,
+  //   id: id,
+});
+
+export const AddTodoListAC = (title: string, id: string): AddTodoListAT => ({
+  type: "ADD-TODOLIST",
+  title,
+  id,
+});
+
+export const ChangeTodoListTitleAC = (
+  title: string,
+  id: string
+): ChangeTodoListTitleAT => ({
+  type: "CHANGE-TODOLIST-TITLE",
+  id,
+  title,
+});
+
+export const ChangeTodoListFilterAC = (
+  id: string,
+  filter: FilterValuesType
+): ChangeTodoListFilterAT => ({
+  type: "CHANGE-TODOLIST-FILTER",
+  id,
+  filter,
 });
