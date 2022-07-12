@@ -1,5 +1,9 @@
 import { FilterValuesType } from "./../App";
-import { ChangeTodoListFilterAT, todolistsReducer } from "./todolists-reducer";
+import {
+  ChangeTodoListFilterAT,
+  todolistsReducer,
+  ChangeTodoListTitleAT,
+} from "./todolists-reducer";
 import { TodoListType } from "../App";
 import { v1 } from "uuid";
 
@@ -54,8 +58,8 @@ test("correct todolist should change its name", () => {
     { id: todolistId2, title: "What to buy", filter: "all" },
   ];
 
-  const action = {
-    type: "CHANGE-TODOLIST-TITLE" as const,
+  const action: ChangeTodoListTitleAT = {
+    type: "CHANGE-TODOLIST-TITLE",
     id: todolistId2,
     title: newTodolistTitle,
   };

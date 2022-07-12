@@ -3,6 +3,7 @@ import { v1 } from "uuid";
 import { TodoListType } from "../App";
 
 ///-----------type for action type -----------\\\
+
 type AddTodoListAT = {
   type: "ADD-TODOLIST";
   title: string;
@@ -20,7 +21,7 @@ export type ChangeTodoListFilterAT = {
   filter: FilterValuesType;
 };
 
-type ChangeTodoListTitleAT = {
+export type ChangeTodoListTitleAT = {
   type: "CHANGE-TODOLIST-TITLE";
   id: string;
   title: string;
