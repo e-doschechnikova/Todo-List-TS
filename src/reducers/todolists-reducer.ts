@@ -59,3 +59,8 @@ export const todolistsReducer = (
       return todolists;
   }
 };
+
+export const RemoveTodoListAC = (id: string): RemoveTodoListAT => ({
+  type: "REMOVE-TODOLIST",
+  id: id,
+});

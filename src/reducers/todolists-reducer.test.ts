@@ -3,6 +3,7 @@ import {
   ChangeTodoListFilterAT,
   todolistsReducer,
   ChangeTodoListTitleAT,
+  RemoveTodoListAC,
 } from "./todolists-reducer";
 import { TodoListType } from "../App";
 import { v1 } from "uuid";
@@ -17,10 +18,7 @@ test("correct todolist should be removed", () => {
     { id: todolistId2, title: "What to buy", filter: "all" },
   ];
   // вызов тестируемой функции:
-  const endState = todolistsReducer(startState, {
-    type: "REMOVE-TODOLIST",
-    id: todolistId2,
-  });
+  const endState = todolistsReducer(startState, RemoveTodoListAC(todolistId2));
   // cверка результата c ожиданием:
   expect(endState.length).toBe(1);
   expect(endState[0].id).toBe(todolistId1);
