@@ -1,6 +1,4 @@
-
 import {FilterValuesType, TodoListType} from "../App";
-// тип действия + необходимые данные для этого действия
 
 ///----------- type for action type -----------\\\
 
@@ -34,6 +32,7 @@ type ActionType =
     | ChangeTodoListTitleAT;
 
 // function:
+// тип действия + необходимые данные для этого действия
 
 export const todolistsReducer = (
     todolists: Array<TodoListType>,
