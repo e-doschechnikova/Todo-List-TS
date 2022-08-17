@@ -1,12 +1,13 @@
 import {TaskStateType} from "../App";
+import {v1} from "uuid";
 
 ///----------- type for action type -----------\\\
 
 export type RemoveTaskAT = ReturnType<typeof removeTaskAC>
 
-export type SecondAT = ReturnType<typeof>
+export type AddTaskAC = ReturnType<typeof addTaskAC>
 
-type ActionsType = RemoveTaskAT | SecondAT
+type ActionsType = RemoveTaskAT | AddTaskAC
 
 
 // function:
@@ -18,10 +19,13 @@ export const tasksReducer = (
     action: ActionsType
 ): TaskStateType => {
     switch (action.type) {
-        case "":
-            return state
-        case "":
-            return state
+        case "REMOVE-TASK":
+            return {...state, [action.todolistId]: state[action.todolistId].filter(task => task.id !== action.taskId)}
+        case "ADD-TASK":
+            return {
+                ...state,
+                [action.todolistId]: [{id: v1(), title: action.title, isDone: false}, ...state[action.todolistId]]
+            }
         default:
             return state
     }
@@ -34,8 +38,8 @@ export const removeTaskAC = (taskId: string, todolistId: string) => {
 
 };
 
-export const SecondAC = (title: string): SecondAT => ({
-    type: ""
-});
+export const addTaskAC = (title: string, todolistId: string) => {
+    return {type: "ADD-TASK", title, todolistId} as const
+};
 
 
