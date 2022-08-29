@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import { indigo, pink } from "@material-ui/core/colors";
+import AppWithReducers from "./AppWithReducers";
 
 const theme = createTheme({
   palette: {
@@ -16,7 +17,7 @@ const theme = createTheme({
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <App />
+    <AppWithReducers />
   </ThemeProvider>,
   document.getElementById("root")
 );
