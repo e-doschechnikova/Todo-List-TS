@@ -89,8 +89,9 @@ function AppWithReducers() {
         dispatchToTodolists(ChangeTodoListFilterAC(todolistID, filter))
     };
     const removeTodolist = (todolistID: string) => {
-        dispatchToTodolists(RemoveTodoListAC(todolistID))
-        dispatchToTasks(RemoveTodoListAC(todolistID))
+        let action = RemoveTodoListAC(todolistID)
+        dispatchToTodolists(action)
+        dispatchToTasks(action)
     };
     const addTodolist = (title: string) => {
         let action = AddTodoListAC(title)
