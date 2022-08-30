@@ -9,6 +9,8 @@ export type AddTaskAT = ReturnType<typeof addTaskAC>
 export type ChangeTaskStatusAT = ReturnType<typeof changeTaskStatusAC>
 export type ChangeTaskTitleAC = ReturnType<typeof changeTaskTitleAC>
 
+const initialState: TaskStateType = {}
+
 type ActionsType = RemoveTaskAT | AddTaskAT | ChangeTaskStatusAT | ChangeTaskTitleAC | AddTodoListAT | RemoveTodoListAT
 
 // function:
@@ -16,7 +18,7 @@ type ActionsType = RemoveTaskAT | AddTaskAT | ChangeTaskStatusAT | ChangeTaskTit
 
 // @ts-ignore
 export const tasksReducer = (
-    state: TaskStateType,
+    state = initialState,
     action: ActionsType
 ): TaskStateType => {
     switch (action.type) {
