@@ -3,23 +3,27 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { createTheme, ThemeProvider } from "@material-ui/core";
-import { indigo, pink } from "@material-ui/core/colors";
+import {createTheme, ThemeProvider} from "@material-ui/core";
+import {indigo, pink} from "@material-ui/core/colors";
 import AppWithReducers from "./AppWithReducers";
+import AppWithRedux from "./AppWithRedux";
+import {Provider} from "react-redux";
 
 const theme = createTheme({
-  palette: {
-    primary: indigo,
-    secondary: pink,
-    type: "light",
-  },
+    palette: {
+        primary: indigo,
+        secondary: pink,
+        type: "light",
+    },
 });
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-    <AppWithReducers />
-  </ThemeProvider>,
-  document.getElementById("root")
+    <Provider store={store}>
+        <ThemeProvider theme={theme}>
+            <AppWithRedux/>
+        </ThemeProvider>
+    </Provider>,
+    document.getElementById("root")
 );
 // App()
 // If you want your app to work offline and load faster, you can change
