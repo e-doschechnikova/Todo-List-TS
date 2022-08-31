@@ -26,8 +26,6 @@ export type ChangeTodoListFilterAT = {
     filter: FilterValuesType;
 };
 
-const initialState: Array<TodoListType> = []
-
 type ActionType =
     | RemoveTodoListAT
     | AddTodoListAT
@@ -38,7 +36,7 @@ type ActionType =
 // тип действия + необходимые данные для этого действия
 
 export const todolistsReducer = (
-    todolists = initialState,
+    todolists: Array<TodoListType>,
     action: ActionType
 ): Array<TodoListType> => {
     switch (action.type) {
