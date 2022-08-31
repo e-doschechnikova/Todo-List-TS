@@ -19,7 +19,8 @@ const theme = createTheme({
 ReactDOM.render(
     <Provider store={store}> <ThemeProvider theme={theme}>
         <AppWithRedux/>
-    </ThemeProvider></Provider>, document.getElementById("root")
+    </ThemeProvider>
+    </Provider>, document.getElementById("root")
 );
 // App()
 // If you want your app to work offline and load faster, you can change
