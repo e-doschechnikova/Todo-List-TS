@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useCallback} from "react";
-import {FilterValuesType} from "./App";
-import {AddItemForm} from "./AddItemForm";
-import {EditableSpan} from "./EditableSpan";
+import {FilterValuesType} from "../App";
+import {AddItemForm} from "../components/AddItemForm/AddItemForm";
+import {EditableSpan} from "../components/EditableSpan/EditableSpan";
 import {
     Button,
     Checkbox,

@@ -1,9 +1,9 @@
 import React, {useReducer} from "react";
 import "./App.css";
-import TodoList, {TaskType} from "./Todolist";
+import TodoList, {TaskType} from "./Todolist/Todolist";
 
 import {v1} from "uuid";
-import {AddItemForm} from "./AddItemForm";
+import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 import {
     AppBar,
     IconButton,
