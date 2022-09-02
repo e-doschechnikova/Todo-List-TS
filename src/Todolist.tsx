@@ -1,5 +1,4 @@
-import React, {ChangeEvent} from "react";
-import styles from "./Todolist.module.css";
+import React, {ChangeEvent, useCallback} from "react";
 import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
@@ -82,7 +81,10 @@ const TodoList = (props: TodoListPropsType) => {
 
         return () => props.changeTodoListFilter(filter, props.id);
     };
-    const addTask = (title: string) => props.addTask(title, props.id);
+    const addTask = useCallback((title: string) =>
+            props.addTask(title, props.id), [props.addTask, props.id]
+        )
+    ;
     const removeTodolist = () => props.removeTodolist(props.id);
 
     const changeTodoListTitle = (todolistTitle: string) =>
