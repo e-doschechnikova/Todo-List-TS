@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback} from "react";
+import React, {ChangeEvent, memo, useCallback} from "react";
 import {FilterValuesType} from "../App";
 import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 import {EditableSpan} from "../components/EditableSpan/EditableSpan";
@@ -42,7 +42,8 @@ type TodoListPropsType = {
     removeTodolist: (todolistID: string) => void;
 };
 
-const TodoList = (props: TodoListPropsType) => {
+export const TodoList = memo((props: TodoListPropsType) => {
+    console.log("Todolist")
     const tasksJSX = props.tasks.length ? (
         props.tasks.map((t) => {
             const removeTask = () => props.removeTask(t.id, props.id);
@@ -132,6 +133,5 @@ const TodoList = (props: TodoListPropsType) => {
             </div>
         </div>
     );
-};
+})
 
-export default TodoList;

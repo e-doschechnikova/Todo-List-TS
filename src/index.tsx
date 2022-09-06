@@ -17,9 +17,10 @@ const theme = createTheme({
 });
 
 ReactDOM.render(
-    <Provider store={store}> <ThemeProvider theme={theme}>
+    <Provider store={store}>
+        <ThemeProvider theme={theme}>
         <AppWithRedux/>
-    </ThemeProvider>
+        </ThemeProvider>
     </Provider>, document.getElementById("root")
 );
 // App()
