@@ -63,26 +63,26 @@ export const TodoList = memo((props: TodoListPropsType) => {
                 props.changeTaskTitle(t.id, taskTitle, props.id);
             };
 
-            return (
-                <ListItem
-                    key={t.id}
-                    className={t.isDone ? "task isDone" : "task"}
-                    alignItems={"center"}
-                    disableGutters={true}
-                    divider={true}
-                >
-                    <Checkbox
-                        size={"small"}
-                        color={"primary"}
-                        onChange={changeTaskStatus}
-                        checked={t.isDone}
-                    />
-                    <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
-                    <IconButton>
-                        <DeleteOutlineOutlined onClick={removeTask}/>
-                    </IconButton>
-                </ListItem>
-            );
+            // return (
+                // <ListItem
+                //     key={t.id}
+                //     className={t.isDone ? "task isDone" : "task"}
+                //     alignItems={"center"}
+                //     disableGutters={true}
+                //     divider={true}
+                // >
+                //     <Checkbox
+                //         size={"small"}
+                //         color={"primary"}
+                //         onChange={changeTaskStatus}
+                //         checked={t.isDone}
+                //     />
+                //     <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
+                //     <IconButton>
+                //         <DeleteOutlineOutlined onClick={removeTask}/>
+                //     </IconButton>
+                // </ListItem>
+            // );
         })
     ) : (
         <span>Your taskslist is empty</span>
