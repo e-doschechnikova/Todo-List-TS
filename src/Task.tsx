@@ -17,8 +17,8 @@ export const Task = ({task, removeTask, changeTaskStatus, changeTaskTitle}: Task
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) =>
         changeTaskStatus(task.id, e.currentTarget.checked);
 
-    const onTitleChangeHandler = (taskTitle: string) => {
-        changeTaskTitle(task.id, taskTitle,);
+    const onTitleChangeHandler = (newValue: string) => {
+        changeTaskTitle(task.id, newValue,);
     };
 
     return (
