@@ -38,7 +38,7 @@ type TodoListPropsType = {
 };
 
 export const TodoList = memo((props: TodoListPropsType) => {
-    console.log("Todolist")
+
     let tasks = props.tasks;
 
     if (props.filter === "active") {
@@ -48,13 +48,12 @@ export const TodoList = memo((props: TodoListPropsType) => {
         tasks = tasks.filter(t => t.isDone === true)
     }
 
-    const removeTask = (taskId: string) => props.removeTask(taskId, props.id);
-    const changeTaskStatus = (taskId: string, newTaskStatus: boolean) =>
-        props.changeTaskStatus(taskId, newTaskStatus, props.id);
-
-    const changeTaskTitle = (taskId: string, newTaskTitle: string) => {
-        props.changeTaskTitle(taskId, newTaskTitle, props.id);
-    };
+    const removeTask = useCallback((taskId: string) => props.removeTask(taskId, props.id), [props.removeTask, props.id]);
+    const changeTaskStatus = useCallback((taskId: string, newTaskStatus: boolean) =>
+        props.changeTaskStatus(taskId, newTaskStatus, props.id), [props.changeTaskStatus, props.id]);
+    const changeTaskTitle = useCallback((taskId: string, newTaskTitle: string) => {
+        props.changeTaskTitle(taskId, newTaskTitle, props.id)
+    }, [props.changeTaskTitle, props.id]);
 
     const tasksJSX = tasks.length ?
         tasks.map(t => <Task key={t.id}
