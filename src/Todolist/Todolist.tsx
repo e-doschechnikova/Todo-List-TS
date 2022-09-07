@@ -1,4 +1,4 @@
-import React, {memo, useCallback, useMemo} from "react";
+import React, {memo, useCallback} from "react";
 import {FilterValuesType} from "../App";
 import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 import {EditableSpan} from "../components/EditableSpan/EditableSpan";
@@ -39,33 +39,26 @@ type TodoListPropsType = {
 
 export const TodoList = memo((props: TodoListPropsType) => {
 
-    let tasks = props.tasks
+    let tasks = props.tasks;
 
-    const taskWithUseMemo = useMemo(() => {
+    if (props.filter === "active") {
+        tasks = tasks.filter(t => t.isDone === false)
+    }
+    if (props.filter === "completed") {
+        tasks = tasks.filter(t => t.isDone === true)
+    }
 
-        if (props.filter === "active") {
-            tasks = tasks.filter(t => t.isDone === false)
-        }
-        if (props.filter === "completed") {
-            tasks = tasks.filter(t => t.isDone === true)
-        }
-
-        return tasks
-    }, [props.filter])
-
-    const removeTask = useCallback((taskId: string) => props.removeTask(taskId, props.id), [props.removeTask, props.id]);
-    const changeTaskStatus = useCallback((taskId: string, newTaskStatus: boolean) =>
-        props.changeTaskStatus(taskId, newTaskStatus, props.id), [props.changeTaskStatus, props.id]);
-    const changeTaskTitle = useCallback((taskId: string, newTaskTitle: string) => {
-        props.changeTaskTitle(taskId, newTaskTitle, props.id)
-    }, [props.changeTaskTitle, props.id]);
+    // const removeTask = useCallback((taskId: string) => props.removeTask(taskId, props.id), [props.removeTask, props.id]);
+    // const changeTaskStatus = useCallback((taskId: string, newTaskStatus: boolean) =>
+    //     props.changeTaskStatus(taskId, newTaskStatus, props.id), [props.changeTaskStatus, props.id]);
+    // const changeTaskTitle = useCallback((taskId: string, newTaskTitle: string) => {
+    //     props.changeTaskTitle(taskId, newTaskTitle, props.id)
+    // }, [props.changeTaskTitle, props.id]);
 
     const tasksJSX = tasks.length ?
-        taskWithUseMemo.map(t => <Task key={t.id}
-                                       task={t}
-                                       removeTask={removeTask}
-                                       changeTaskStatus={changeTaskStatus}
-                                       changeTaskTitle={changeTaskTitle}/>)
+        tasks.map(t => <Task key={t.id}
+                             task={t}
+                             todolistID={props.id}/>)
         : <span>Your taskslist is empty</span>;
 
     const createOnClickHandler = (filter: FilterValuesType) => {
