@@ -76,25 +76,13 @@ function AppWithRedux() {
     //UI:
 
     const todolistsComponents = todolists.map((tl) => {
-        let tasksForRender;
-        switch (tl.filter) {
-            case "active":
-                tasksForRender = tasks[tl.id].filter((t) => !t.isDone);
-                break;
-            case "completed":
-                tasksForRender = tasks[tl.id].filter((t) => t.isDone);
-                break;
-            default:
-                tasksForRender = tasks[tl.id];
-        }
-
         return (
             <Grid item key={tl.id}>
                 <Paper variant={"elevation"} style={{padding: "20px"}}>
                     <TodoList
                         id={tl.id}
                         title={tl.title}
-                        tasks={tasksForRender}
+                        tasks={tasks[tl.id]}
                         filter={tl.filter}
                         addTask={addTask}
                         removeTask={removeTask}

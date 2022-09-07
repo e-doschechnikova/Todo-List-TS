@@ -44,8 +44,17 @@ type TodoListPropsType = {
 
 export const TodoList = memo((props: TodoListPropsType) => {
     console.log("Todolist")
+    let tasks = props.tasks;
+
+    if (props.filter === "active") {
+        tasks = tasks.filter(t => t.isDone === false)
+    }
+    if (props.filter === "completed") {
+        tasks = tasks.filter(t => t.isDone === true)
+    }
+
     const tasksJSX = props.tasks.length ? (
-        props.tasks.map((t) => {
+        tasks.map((t) => {
             const removeTask = () => props.removeTask(t.id, props.id);
             const changeTaskStatus = (e: ChangeEvent<HTMLInputElement>) =>
                 props.changeTaskStatus(t.id, e.currentTarget.checked, props.id);
@@ -79,15 +88,10 @@ export const TodoList = memo((props: TodoListPropsType) => {
         <span>Your taskslist is empty</span>
     );
     const createOnClickHandler = (filter: FilterValuesType) => {
-
         return () => props.changeTodoListFilter(filter, props.id);
     };
-    const addTask = useCallback((title: string) =>
-            props.addTask(title, props.id), [props.addTask, props.id]
-        )
-    ;
+    const addTask = useCallback((title: string) => props.addTask(title, props.id), [props.addTask, props.id]);
     const removeTodolist = () => props.removeTodolist(props.id);
-
     const changeTodoListTitle = (todolistTitle: string) =>
         props.changeTodoListTitle(todolistTitle, props.id);
 
