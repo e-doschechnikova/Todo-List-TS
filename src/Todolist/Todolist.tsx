@@ -4,7 +4,7 @@ import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 import {EditableSpan} from "../components/EditableSpan/EditableSpan";
 import {Button, IconButton, List} from "@material-ui/core";
 import {DeleteOutlineOutlined} from "@material-ui/icons";
-import {Task} from "../Task";
+import {Task} from "./Task/Task";
 
 export type TaskType = {
     id: string;
