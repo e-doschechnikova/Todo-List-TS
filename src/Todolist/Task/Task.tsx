@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo} from 'react';
+import React, {ChangeEvent, memo} from "react";
 import {Checkbox, IconButton, ListItem} from "@material-ui/core";
 import {EditableSpan} from "../../components/EditableSpan/EditableSpan";
 import {DeleteOutlineOutlined} from "@material-ui/icons";
