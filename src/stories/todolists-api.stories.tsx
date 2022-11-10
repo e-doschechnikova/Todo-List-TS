@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import axios from "axios";
 import {todolistAPI} from "../api/todolist-api";
 
 export default {
@@ -12,9 +11,6 @@ export const GetTodolists = () => {
        todolistAPI.getTodolist().then((res) => {
                 setState(res.data)
             })
-        // здесь мы будем делать запрос и ответ закидывать в стейт.
-        // который в виде строки будем отображать в div-ке
-
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
@@ -31,7 +27,7 @@ export const CreateTodolist = () => {
 export const DeleteTodolist = () => {
     const [state, setState] = useState<any>()
     useEffect(() => {
-        const todolistId = "8a794d10-31d3-410c-99fc-e1d92d630c35"
+        const todolistId = "44ebc1a1-70eb-48e8-a616-f0b82fa1d922"
         todolistAPI.deleteTodolist(todolistId).then((res) => {
             setState(res.data)
         })
