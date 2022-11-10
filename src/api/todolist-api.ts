@@ -27,6 +27,20 @@ export const todolistAPI = {
             `todo-lists/${todolistId}`,
             {title: title})
         return promise
+    },
+    getTasks(todolistId: string) {
+        return instance.get<GetTasksResponse>(
+            `todo-lists/${todolistId}/tasks`)
+    },
+    createTasks(todolistId: string, taskTitle: string) {
+        return instance.post<ResponseType<TaskType>>(
+            `todo-lists/${todolistId}/tasks/`, {title: taskTitle})
+    },
+    deleteTasks(todolistId: string, taskId: string) {
+        return instance.delete<UpdateTasksType>(
+            `todo-lists/${todolistId}/tasks/${taskId}`)
+    },
+    updateTasks() {
     }
 }
 
@@ -44,3 +58,30 @@ type TodolistType = {
     title: string
 }
 
+type TaskType = {
+    description: string
+    title: string
+    status: number
+    startDate: string
+    deadline: string
+    id: string
+    todolistId: string
+    order: number
+    addedData: string
+}
+
+type GetTasksResponse = {
+    error: string | null
+    totalCount: number
+    items: TaskType[]
+}
+
+type UpdateTasksType = {
+    title: string
+    description: string
+    completed: boolean
+    status: number
+    priority: number
+    startDate: string
+    deadline: string
+}
