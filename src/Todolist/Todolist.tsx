@@ -1,4 +1,4 @@
-import React, {memo, useCallback} from "react";
+import React, {memo, useCallback, useEffect} from "react";
 import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 import {EditableSpan} from "../components/EditableSpan/EditableSpan";
 import {Button, IconButton, List} from "@material-ui/core";
@@ -6,6 +6,9 @@ import {DeleteOutlineOutlined} from "@material-ui/icons";
 import {Task} from "./Task/Task";
 import {TaskStatuses, TaskType} from "../api/todolist-api";
 import {FilterValuesType} from "../reducers/todolists-reducer";
+import {fetchTasksTC} from "../reducers/tasks-reducer";
+import {useAppDispatch} from "../redux/store";
+
 
 type TodoListPropsType = {
     id: string;
@@ -33,6 +36,12 @@ type TodoListPropsType = {
 };
 
 export const TodoList = memo((props: TodoListPropsType) => {
+    const dispatch = useAppDispatch()
+
+    useEffect(()=> {
+        dispatch(fetchTasksTC(props.id))
+    },[])
+
 
     let tasksForTodolist = props.tasks;
 
@@ -42,14 +51,6 @@ export const TodoList = memo((props: TodoListPropsType) => {
     if (props.filter === "completed") {
         tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
-
-    // const removeTask = useCallback((taskId: string) => props.removeTask(taskId, props.id), [props.removeTask, props.id]);
-    // const changeTaskStatus = useCallback((taskId: string, newTaskStatus: boolean) =>
-    //     props.changeTaskStatus(taskId, newTaskStatus, props.id), [props.changeTaskStatus, props.id]);
-    // const changeTaskTitle = useCallback((taskId: string, newTaskTitle: string) => {
-    //     props.changeTaskTitle(taskId, newTaskTitle, props.id)
-    // }, [props.changeTaskTitle, props.id]);
-
 
     const createOnClickHandler = (filter: FilterValuesType) => {
         return () => props.changeTodoListFilter(filter, props.id);

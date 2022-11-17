@@ -6,7 +6,7 @@ import {createTheme, ThemeProvider} from "@material-ui/core";
 import {indigo, pink} from "@material-ui/core/colors";
 import AppWithRedux from "./AppWithRedux";
 import {Provider} from "react-redux";
-import { store } from "./redux/store";
+import {store} from "./redux/store";
 
 const theme = createTheme({
     palette: {
@@ -19,7 +19,7 @@ const theme = createTheme({
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-        <AppWithRedux/>
+            <AppWithRedux/>
         </ThemeProvider>
     </Provider>, document.getElementById("root")
 );
