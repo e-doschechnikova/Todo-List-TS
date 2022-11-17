@@ -32,7 +32,8 @@ type ActionType =
     | RemoveTodoListAT
     | AddTodoListAT
     | ChangeTodoListFilterAT
-    | ChangeTodoListTitleAT;
+    | ChangeTodoListTitleAT
+    | SetTodoListType
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -45,6 +46,9 @@ export const todolistsReducer = (
     action: ActionType
 ): Array<TodoListDomainType> => {
     switch (action.type) {
+        case "SET_TODOS": {
+            return action.todos.map(el => ({...el, filter: "all"}))
+        }
         case "ADD-TODOLIST":
             return [
                 ...todolists,
@@ -96,3 +100,12 @@ export const ChangeTodoListFilterAC = (
     id,
     filter,
 });
+
+export const setTodolist = (todos: TodoListType[]) => {
+    return {
+        type: "SET_TODOS",
+        todos
+    } as const
+}
+
+export type SetTodoListType = ReturnType<typeof setTodolist>

@@ -34,13 +34,13 @@ type TodoListPropsType = {
 
 export const TodoList = memo((props: TodoListPropsType) => {
 
-    let tasks = props.tasks;
+    let tasksForTodolist = props.tasks;
 
     if (props.filter === "active") {
-        tasks = tasks.filter(t => t.status === TaskStatuses.New)
+        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (props.filter === "completed") {
-        tasks = tasks.filter(t => t.status === TaskStatuses.Completed)
+        tasksForTodolist = props.tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
     // const removeTask = useCallback((taskId: string) => props.removeTask(taskId, props.id), [props.removeTask, props.id]);
@@ -50,12 +50,6 @@ export const TodoList = memo((props: TodoListPropsType) => {
     //     props.changeTaskTitle(taskId, newTaskTitle, props.id)
     // }, [props.changeTaskTitle, props.id]);
 
-    const tasksJSX = tasks.length ?
-        tasks.map(t => <Task key={t.id}
-                             task={t}
-                             todolistID={props.id}
-        />)
-        : <span>Your taskslist is empty</span>;
 
     const createOnClickHandler = (filter: FilterValuesType) => {
         return () => props.changeTodoListFilter(filter, props.id);
@@ -74,7 +68,10 @@ export const TodoList = memo((props: TodoListPropsType) => {
                 </IconButton>
             </h3>
             <AddItemForm addItem={addTask}/>
-            <List style={{listStyle: "none"}}>{tasksJSX}</List>
+            <List style={{listStyle: "none"}}>
+                {tasksForTodolist.map(t => <Task key={t.id} task={t} todolistID={props.id}
+                />)}
+            </List>
             <div>
                 <Button
                     size={"small"}
