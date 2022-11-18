@@ -42,7 +42,6 @@ export const TodoList = memo((props: TodoListPropsType) => {
         dispatch(fetchTasksTC(props.id))
     }, [])
 
-
     let tasksForTodolist = props.tasks;
 
     if (props.filter === "active") {
