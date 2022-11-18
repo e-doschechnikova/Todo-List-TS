@@ -6,12 +6,16 @@ import {useDispatch} from "react-redux";
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../reducers/tasks-reducer";
 import {TaskStatuses, TaskType} from "../../api/todolist-api";
 
-type TaskPropsType = {
+export type TaskPropsType = {
     task: TaskType,
     todolistID: string,
+    removeTask: (taskID: string, todolistID: string) => void;
+    changeTaskTitle: (taskTitle: string, title: string, todolistID: string) => void;
+    changeTaskStatus: (taskID: string, status: TaskStatuses, todolistID: string) => void;
 }
 
-export const Task = memo(({task, todolistID}: TaskPropsType) => {
+export const
+    Task = memo(({task, todolistID}: TaskPropsType) => {
 
     const {id, status, title} = {...task}
 

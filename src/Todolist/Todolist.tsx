@@ -38,9 +38,9 @@ type TodoListPropsType = {
 export const TodoList = memo((props: TodoListPropsType) => {
     const dispatch = useAppDispatch()
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(fetchTasksTC(props.id))
-    },[])
+    }, [])
 
 
     let tasksForTodolist = props.tasks;
@@ -70,7 +70,9 @@ export const TodoList = memo((props: TodoListPropsType) => {
             </h3>
             <AddItemForm addItem={addTask}/>
             <List style={{listStyle: "none"}}>
-                {tasksForTodolist.map(t => <Task key={t.id} task={t} todolistID={props.id}
+                {tasksForTodolist.map(t => <Task key={t.id} task={t} todolistID={props.id} removeTask={props.removeTask}
+                                                 changeTaskTitle={props.changeTaskTitle}
+                                                 changeTaskStatus={props.changeTaskStatus}
                 />)}
             </List>
             <div>

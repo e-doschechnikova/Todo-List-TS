@@ -1,9 +1,8 @@
-import {TaskStateType} from "../App";
+import {TaskStateType} from "../AppWithRedux";
 import {v1} from "uuid";
 import {AddTodoListAT, RemoveTodoListAT, SetTodoListType} from "./todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType, todolistAPI} from "../api/todolist-api";
 import {Dispatch} from "redux";
-import {AppDispatch} from "../redux/store";
 
 ///----------- type for action type -----------\\\
 
@@ -11,11 +10,6 @@ export type RemoveTaskAT = ReturnType<typeof removeTaskAC>
 export type AddTaskAT = ReturnType<typeof addTaskAC>
 export type ChangeTaskStatusAT = ReturnType<typeof changeTaskStatusAC>
 export type ChangeTaskTitleAC = ReturnType<typeof changeTaskTitleAC>
-export type SetTasksActionType = {
-    type: 'SET-TASKS'
-    tasks: TaskType[]
-    todolistId: string
-}
 
 const initialState: TaskStateType = {}
 
