@@ -62,13 +62,17 @@ export const tasksReducer = (
                 } : task)
             }
         case "ADD-TODOLIST": {
-            return {...state, [action.todolistId]: []}
+            return {...state, [action.todolist.id]: []}
         }
-
         case "REMOVE-TODOLIST": {
             let copyState = {...state}
             delete copyState[action.id]
             return copyState
+        }
+        case "SET-TASK": {
+            const stateCopy = {...state}
+            stateCopy[action.todolistId] = action.tasks
+            return stateCopy
         }
         case "SET-TODOLISTS": {
             const stateCopy = {...state}
@@ -77,11 +81,7 @@ export const tasksReducer = (
             })
             return stateCopy;
         }
-        case "SET-TASK": {
-            const stateCopy = {...state}
-            stateCopy[action.todolistId] = action.tasks
-            return stateCopy
-        }
+
         default:
             return state
     }

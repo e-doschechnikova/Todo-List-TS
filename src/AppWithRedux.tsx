@@ -6,19 +6,13 @@ import {AddItemForm} from "./components/AddItemForm/AddItemForm";
 import {AppBar, IconButton, Button, Toolbar, Typography, Container, Grid, Paper,} from "@material-ui/core";
 import {Menu} from "@material-ui/icons";
 import {
-    ChangeTodoListTitleAC,
     ChangeTodoListFilterAC,
-    RemoveTodoListAC,
-    AddTodoListAC, FilterValuesType, TodoListDomainType, fetchTodolistsTC
+    FilterValuesType,
+    TodoListDomainType,
+    fetchTodolistsTC,
+    removeTodolistTC, addTodolistTC, ChangeTodoListTitleTC
 } from "./reducers/todolists-reducer";
-import {
-    addTaskAC,
-    addTaskTC,
-    changeTaskStatusAC,
-    changeTaskTitleAC,
-    removeTaskTC,
-    updateTaskTC
-} from "./reducers/tasks-reducer";
+import {addTaskTC, changeTaskTitleAC, removeTaskTC, updateTaskTC} from "./reducers/tasks-reducer";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "./redux/store";
 import {TaskStatuses, TaskType} from "./api/todolist-api";
@@ -61,18 +55,20 @@ function AppWithRedux() {
 
     //todolists:
     const changeTodoListTitle = useCallback((title: string, todolistID: string) => {
-        dispatch(ChangeTodoListTitleAC(title, todolistID))
+        // debugger
+        let thunk = ChangeTodoListTitleTC(title, todolistID)
+        dispatch(thunk)
     }, [dispatch]);
     const changeTodoListFilter = useCallback((filter: FilterValuesType, todolistID: string) => {
         dispatch(ChangeTodoListFilterAC(todolistID, filter))
     }, [dispatch]);
     const removeTodolist = useCallback((todolistID: string) => {
-        let action = RemoveTodoListAC(todolistID)
-        dispatch(action)
+        let thunk = removeTodolistTC(todolistID)
+        dispatch(thunk)
     }, [dispatch]);
     const addTodolist = useCallback((title: string) => {
-        let action = AddTodoListAC(title)
-        dispatch(action)
+        let thunk = addTodolistTC(title)
+        dispatch(thunk)
     }, [dispatch]);
 
     //UI:
