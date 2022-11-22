@@ -80,7 +80,7 @@ export const RemoveTodoListAC = (id: string): RemoveTodoListAT => ({
     //   id: id,
 });
 
-export const AddTodoListAC = (todolist: TodoListType) => ({
+export const AddTodoListAC = (todolist: TodoListType): AddTodoListAT => ({
     type: "ADD-TODOLIST",
     todolist
 });

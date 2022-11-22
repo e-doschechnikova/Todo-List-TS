@@ -59,6 +59,12 @@ export const TodoList = memo((props: TodoListPropsType) => {
     const changeTodoListTitle = (todolistTitle: string) =>
         props.changeTodoListTitle(todolistTitle, props.id);
 
+    const taskJSX = tasksForTodolist.length ?
+    tasksForTodolist.map(t => <Task key={t.id} task={t} todolistID={props.id} removeTask={props.removeTask}
+                                    changeTaskTitle={props.changeTaskTitle}
+                                    changeTaskStatus={props.changeTaskStatus}
+    />) : <span>I'm empty! Fill me up! <b>㋡</b></span>
+
     return (
         <div>
             <h3>
@@ -69,10 +75,7 @@ export const TodoList = memo((props: TodoListPropsType) => {
             </h3>
             <AddItemForm addItem={addTask}/>
             <List style={{listStyle: "none"}}>
-                {tasksForTodolist.map(t => <Task key={t.id} task={t} todolistID={props.id} removeTask={props.removeTask}
-                                                 changeTaskTitle={props.changeTaskTitle}
-                                                 changeTaskStatus={props.changeTaskStatus}
-                />)}
+                {taskJSX}
             </List>
             <div>
                 <Button
