@@ -39,7 +39,7 @@ export const todolistAPI = {
         return instance.delete<ResponseType>(
             `todo-lists/${todolistId}/tasks/${taskId}`)
     },
-    updateTasks(todolistId: string, taskId: string, model: UpdateTasksType) {
+    updateTasks(todolistId: string, taskId: string, model: UpdateTasksModelType) {
         return instance.put<ResponseType>(
             `todo-lists/${todolistId}/tasks/${taskId}`, model)
     }
@@ -106,7 +106,7 @@ type GetTasksResponse = {
     items: TaskType[]
 }
 
-type UpdateTasksType = {
+export type UpdateTasksModelType = {
     title: string
     description: string
     // completed: boolean

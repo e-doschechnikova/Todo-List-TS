@@ -25,8 +25,8 @@ type TodoListPropsType = {
     ) => void;
     changeTaskStatus: (
         taskID: string,
-        status: TaskStatuses,
-        todolistID: string
+        todolistID: string,
+        status: TaskStatuses
     ) => void;
 
     changeTodoListFilter: (filter: FilterValuesType, todolistID: string) => void;

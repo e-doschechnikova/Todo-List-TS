@@ -12,7 +12,7 @@ export type TaskPropsType = {
     todolistID: string,
     removeTask: (taskID: string, todolistID: string) => void;
     changeTaskTitle: (taskTitle: string, title: string, todolistID: string) => void;
-    changeTaskStatus: (taskID: string, status: TaskStatuses, todolistID: string) => void;
+    changeTaskStatus: (taskID: string, todolistID: string, status: TaskStatuses) => void;
 }
 
 export const
@@ -23,11 +23,12 @@ export const
 
         const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             let newIsDoneValue = e.currentTarget.checked
-            changeTaskStatus(id, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New, todolistID)
+            changeTaskStatus(id, todolistID, newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New,)
         }, [task.id, todolistID])
 
         const onTitleChangeHandler = useCallback((newValue: string) => {
-            changeTaskTitle(id, newValue, todolistID)}, [task.id, todolistID])
+            changeTaskTitle(id, newValue, todolistID)
+        }, [task.id, todolistID])
 
         return (
             <ListItem
