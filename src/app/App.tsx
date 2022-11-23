@@ -22,7 +22,6 @@ function App() {
             <TodolistsList/>
         </Container>
     </div>
-
 }
 
 export default App;

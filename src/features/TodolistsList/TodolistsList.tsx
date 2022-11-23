@@ -7,12 +7,12 @@ import {
     fetchTodolistsTC,
     FilterValuesType, removeTodolistTC,
     TodoListDomainType
-} from "../../reducers/todolists-reducer";
-import {AppRootStateType, useAppDispatch } from "../../redux/store";
-import {addTaskTC, removeTaskTC, TaskStateType, updateTaskTC} from "../../reducers/tasks-reducer";
+} from "./Todolist/todolists-reducer";
+import {AppRootStateType, useAppDispatch } from "../../api/store";
+import {addTaskTC, removeTaskTC, TaskStateType, updateTaskTC} from "./Todolist/Task/tasks-reducer";
 import {TaskStatuses} from "../../api/todolist-api";
 import {Grid, Paper} from "@material-ui/core";
-import {TodoList} from "../../Todolist/Todolist";
+import {TodoList} from "./Todolist/Todolist";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 
 export const TodolistsList = () => {

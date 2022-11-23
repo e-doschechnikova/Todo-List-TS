@@ -1,7 +1,7 @@
 import {AddTodoListAC, TodoListDomainType, todolistsReducer} from "../todolists-reducer";
-import {tasksReducer} from "../tasks-reducer";
-import {TaskStateType} from "../../app/App";
-import {TodoListType} from "../../api/todolist-api";
+import {tasksReducer} from "../Task/tasks-reducer";
+import {TaskStateType} from "../../../../app/App";
+import {TodoListType} from "../../../../api/todolist-api";
 
 
 test('is should be equals', () => {

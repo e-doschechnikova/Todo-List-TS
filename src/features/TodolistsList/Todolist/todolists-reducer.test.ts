@@ -5,9 +5,9 @@ import {
     AddTodoListAC,
     ChangeTodoListFilterAC,
     ChangeTodoListTitleAC, TodoListDomainType, FilterValuesType, setTodolistsAC,
-} from "../todolists-reducer";
+} from "./todolists-reducer";
 import {v1} from "uuid";
-import {TodoListType} from "../../api/todolist-api";
+import {TodoListType} from "../../../api/todolist-api";
 
 let todolistId1: string
 let todolistId2: string

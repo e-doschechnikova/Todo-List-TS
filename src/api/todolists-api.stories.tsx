@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {todolistAPI} from "../api/todolist-api";
+import {todolistAPI} from "./todolist-api";
 import {Description} from "@material-ui/icons";
 
 export default {
