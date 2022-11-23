@@ -9,33 +9,8 @@ import {fetchTasksTC} from "./Task/tasks-reducer";
 import {useAppDispatch} from "../../../api/store";
 import {Task} from "./Task/Task";
 
-
-type TodoListPropsType = {
-    id: string;
-    title: string;
-    tasks: TaskType[];
-    filter: FilterValuesType;
-
-    addTask: (title: string, todolistID: string) => void;
-    removeTask: (taskID: string, todolistID: string) => void;
-    changeTaskTitle: (
-        taskTitle: string,
-        title: string,
-        todolistID: string
-    ) => void;
-    changeTaskStatus: (
-        taskID: string,
-        todolistID: string,
-        status: TaskStatuses
-    ) => void;
-
-    changeTodoListFilter: (filter: FilterValuesType, todolistID: string) => void;
-    changeTodoListTitle: (title: string, todolistID: string) => void;
-
-    removeTodolist: (todolistID: string) => void;
-};
-
 export const TodoList = memo((props: TodoListPropsType) => {
+
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -58,12 +33,11 @@ export const TodoList = memo((props: TodoListPropsType) => {
     const removeTodolist = () => props.removeTodolist(props.id);
     const changeTodoListTitle = (todolistTitle: string) =>
         props.changeTodoListTitle(todolistTitle, props.id);
-
     const taskJSX = tasksForTodolist.length ?
-    tasksForTodolist.map(t => <Task key={t.id} task={t} todolistID={props.id} removeTask={props.removeTask}
-                                    changeTaskTitle={props.changeTaskTitle}
-                                    changeTaskStatus={props.changeTaskStatus}
-    />) : <span>I'm empty! Fill me up! <b>㋡</b></span>
+        tasksForTodolist.map(t => <Task key={t.id} task={t} todolistID={props.id} removeTask={props.removeTask}
+                                        changeTaskTitle={props.changeTaskTitle}
+                                        changeTaskStatus={props.changeTaskStatus}
+        />) : <span>I'm empty! Fill me up! <b>㋡</b></span>
 
     return (
         <div>
@@ -111,3 +85,25 @@ export const TodoList = memo((props: TodoListPropsType) => {
     );
 })
 
+///----------- type -----------\\\
+type TodoListPropsType = {
+    id: string;
+    title: string;
+    tasks: TaskType[];
+    filter: FilterValuesType;
+    addTask: (title: string, todolistID: string) => void;
+    removeTask: (taskID: string, todolistID: string) => void;
+    changeTaskTitle: (
+        taskTitle: string,
+        title: string,
+        todolistID: string
+    ) => void;
+    changeTaskStatus: (
+        taskID: string,
+        todolistID: string,
+        status: TaskStatuses
+    ) => void;
+    changeTodoListFilter: (filter: FilterValuesType, todolistID: string) => void;
+    changeTodoListTitle: (title: string, todolistID: string) => void;
+    removeTodolist: (todolistID: string) => void;
+};

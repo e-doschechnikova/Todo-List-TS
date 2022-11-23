@@ -108,6 +108,7 @@ export const updateTaskTC = (taskID: string, todolistID: string, domainModel: Up
 export type TaskStateType = {
     [todolistID: string]: Array<TaskType>;
 };
+
 type ActionsType =
     ReturnType<typeof removeTaskAC>
     | ReturnType<typeof addTaskAC>

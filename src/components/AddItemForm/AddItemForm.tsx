@@ -2,10 +2,6 @@ import {IconButton, TextField} from "@material-ui/core";
 import {AddOutlined} from "@material-ui/icons";
 import React, {ChangeEvent, KeyboardEvent, memo, useState} from "react";
 
-type AddItemFormPropsType = {
-    addItem: (title: string) => void;
-};
-
 export const AddItemForm = memo((props: AddItemFormPropsType) => {
 
     const [title, setTitle] = React.useState<string>("");
@@ -17,7 +13,6 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
     };
     const onKeyDownAddItem = (e: KeyboardEvent<HTMLInputElement>) =>
         e.key === "Enter" && onClickAddItem();
-
     const onClickAddItem = () => {
         const trimmedTitle = title.trim();
         if (trimmedTitle) {
@@ -46,3 +41,8 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
         </div>
     );
 });
+
+///----------- type -----------\\\
+type AddItemFormPropsType = {
+    addItem: (title: string) => void;
+};

@@ -10,13 +10,11 @@ const rootReducer = combineReducers({
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
-
-export type AppRootStateType = ReturnType<typeof rootReducer>
-
-type AppDispatchType = ThunkDispatch<AppRootStateType, void, AnyAction>
 export const useAppDispatch = () => useDispatch<AppDispatchType>()
 
 // @ts-ignore
 window.store = store;
 
-
+///----------- types -----------\\\
+export type AppRootStateType = ReturnType<typeof rootReducer>
+type AppDispatchType = ThunkDispatch<AppRootStateType, void, AnyAction>
