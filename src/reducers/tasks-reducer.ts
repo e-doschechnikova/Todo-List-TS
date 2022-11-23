@@ -80,8 +80,7 @@ export const updateTaskAC = (taskID: string, model: UpdateDomainTasksModelType, 
 } as const);
 export const setTaskAC = (tasks: TaskType[], todolistId: string) => ({type: "SET-TASK", tasks, todolistId} as const)
 
-///----------- thunks creators -----------\\\
-
+///--
 export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<any>) => {
     todolistAPI.getTasks(todolistId)
         .then((res) => {
@@ -89,7 +88,6 @@ export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<any>) =>
             dispatch(setTaskAC(tasks, todolistId))
         })
 }
-
 export const removeTaskTC = (taskID: string, todolistID: string) => (dispatch: Dispatch) => {
     todolistAPI.deleteTasks(taskID, todolistID).then((res) => {
         if (res.data.resultCode === 0) {
@@ -97,13 +95,11 @@ export const removeTaskTC = (taskID: string, todolistID: string) => (dispatch: D
         }
     })
 }
-
 export const addTaskTC = (taskTitle: string, todolistID: string) => (dispatch: Dispatch) => {
     todolistAPI.createTasks(todolistID, taskTitle).then((res) => {
         dispatch(addTaskAC(res.data.data.item))
     })
 }
-
 export type UpdateDomainTasksModelType = {
     title?: string
     description?: string
@@ -112,7 +108,6 @@ export type UpdateDomainTasksModelType = {
     startDate?: string
     deadline?: string
 }
-
 export const updateTaskTC = (taskID: string, todolistID: string, domainModel: UpdateDomainTasksModelType) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistID].find((t) => t.id === taskID)
     if (task) {
