@@ -8,7 +8,7 @@ const instance = axios.create({
     }
 })
 
-
+///----------- api -----------\\\
 export const todolistAPI = {
     getTodolist() {
         const promise = instance.get<TodoListType[]>("todo-lists")
@@ -28,44 +28,42 @@ export const todolistAPI = {
             {title: title})
         return promise
     },
-    getTasks(todolistId: string) {
+    getTasks(todolistID: string) {
         return instance.get<GetTasksResponse>(
-            `todo-lists/${todolistId}/tasks`)
+            `todo-lists/${todolistID}/tasks`)
     },
-    createTasks(todolistId: string, title: string) {
-        return instance.post<{ title: string }, AxiosResponse<ResponseType<{ item: CreateTaskType }>>>(`todo-lists/${todolistId}/tasks`, {title});
+    createTasks(todolistID: string, title: string) {
+        return instance.post<{ title: string }, AxiosResponse<ResponseType<{ item: CreateTaskType }>>>(`todo-lists/${todolistID}/tasks`, {title});
     },
-    deleteTasks(taskId: string, todolistId: string) {
+    deleteTasks(taskID: string, todolistID: string) {
         return instance.delete<ResponseType>(
-            `todo-lists/${todolistId}/tasks/${taskId}`)
+            `todo-lists/${todolistID}/tasks/${taskID}`)
     },
-    updateTasks(todolistId: string, taskId: string, model: UpdateTasksModelType) {
+    updateTasks(todolistID: string, taskID: string, model: UpdateTasksModelType) {
         return instance.put<ResponseType>(
-            `todo-lists/${todolistId}/tasks/${taskId}`, model)
+            `todo-lists/${todolistID}/tasks/${taskID}`, model)
     }
 }
 
+///----------- types -----------\\\
 export type ResponseType<T = {}> = {
     resultCode: number,
     messages: string[],
     fieldsErrors: string[],
     data: T
 }
-
 export type TodoListType = {
     id: string,
     addedDate: string,
     order: number,
     title: string
 }
-
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
     Completed = 2,
     Draft = 3
 }
-
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -73,7 +71,6 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
-
 export type TaskType = {
     description: string
     title: string
@@ -86,7 +83,6 @@ export type TaskType = {
     order: number
     addedData: string
 }
-
 export type CreateTaskType = {
     description: string
     title: string
@@ -99,17 +95,14 @@ export type CreateTaskType = {
     order: number
     addedData: string
 }
-
 type GetTasksResponse = {
     error: string | null
     totalCount: number
     items: TaskType[]
 }
-
 export type UpdateTasksModelType = {
     title: string
     description: string
-    // completed: boolean
     status: number
     priority: number
     startDate: string
