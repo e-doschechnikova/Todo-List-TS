@@ -4,16 +4,6 @@ import {CreateTaskType, TaskType, todolistAPI, UpdateTasksModelType} from "../ap
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../redux/store";
 
-///----------- type -----------\\\
-type ActionsType =
-    ReturnType<typeof removeTaskAC>
-    | ReturnType<typeof addTaskAC>
-    | ReturnType<typeof updateTaskAC>
-    | AddTodoListAT
-    | RemoveTodoListAT
-    | SetTodoListAT
-    | ReturnType<typeof setTaskAC>
-
 const initialState: TaskStateType = {}
 
 export const tasksReducer = (
@@ -80,7 +70,7 @@ export const updateTaskAC = (taskID: string, model: UpdateDomainTasksModelType, 
 } as const);
 export const setTaskAC = (tasks: TaskType[], todolistId: string) => ({type: "SET-TASK", tasks, todolistId} as const)
 
-///--
+///----------- thunks creators -----------\\\
 export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch<any>) => {
     todolistAPI.getTasks(todolistId)
         .then((res) => {
@@ -100,14 +90,6 @@ export const addTaskTC = (taskTitle: string, todolistID: string) => (dispatch: D
         dispatch(addTaskAC(res.data.data.item))
     })
 }
-export type UpdateDomainTasksModelType = {
-    title?: string
-    description?: string
-    status?: number
-    priority?: number
-    startDate?: string
-    deadline?: string
-}
 export const updateTaskTC = (taskID: string, todolistID: string, domainModel: UpdateDomainTasksModelType) => (dispatch: Dispatch, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistID].find((t) => t.id === taskID)
     if (task) {
@@ -125,6 +107,25 @@ export const updateTaskTC = (taskID: string, todolistID: string, domainModel: Up
             dispatch(updateTaskAC(taskID, domainModel, todolistID))
         })
     }
+}
+
+///----------- types -----------\\\
+type ActionsType =
+    ReturnType<typeof removeTaskAC>
+    | ReturnType<typeof addTaskAC>
+    | ReturnType<typeof updateTaskAC>
+    | AddTodoListAT
+    | RemoveTodoListAT
+    | SetTodoListAT
+    | ReturnType<typeof setTaskAC>
+
+export type UpdateDomainTasksModelType = {
+    title?: string
+    description?: string
+    status?: number
+    priority?: number
+    startDate?: string
+    deadline?: string
 }
 
 
