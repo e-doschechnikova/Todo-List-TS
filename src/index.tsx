@@ -4,7 +4,7 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import {createTheme, ThemeProvider} from "@material-ui/core";
 import {indigo, pink} from "@material-ui/core/colors";
-import AppWithRedux from "./AppWithRedux";
+import App from "./app/App";
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
 
@@ -19,7 +19,7 @@ const theme = createTheme({
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <AppWithRedux/>
+            <App/>
         </ThemeProvider>
     </Provider>, document.getElementById("root")
 );

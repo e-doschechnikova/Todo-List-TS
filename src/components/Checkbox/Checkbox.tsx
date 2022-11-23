@@ -1,10 +1,5 @@
 import React, {ChangeEvent} from 'react';
 
-type CheckboxPropsType = {
-    checked: boolean
-    callback: (eventValue: boolean) => void
-}
-
 export const Checkbox = (props: CheckboxPropsType) => {
 
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,3 +14,8 @@ export const Checkbox = (props: CheckboxPropsType) => {
     );
 };
 
+///----------- type -----------\\\
+type CheckboxPropsType = {
+    checked: boolean
+    callback: (eventValue: boolean) => void
+}
