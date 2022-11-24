@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState} from "react"
 import {todolistAPI} from "./todolist-api";
 import {Description} from "@material-ui/icons";
 
 export default {
-    title: 'API'
+    title: "API"
 }
 
 export const GetTodolists = () => {

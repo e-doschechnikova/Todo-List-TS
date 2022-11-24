@@ -1,4 +1,4 @@
-import {addTaskAC, updateTaskAC, removeTaskAC, tasksReducer} from './tasks-reducer';
+import {addTaskAC, updateTaskAC, removeTaskAC, tasksReducer} from "./tasks-reducer";
 import {AddTodoListAC, RemoveTodoListAC} from "../todolists-reducer";
 import {TaskPriorities, TaskStatuses} from "../../../../api/todolist-api";
 import {TaskStateType} from "../../../../app/App";
@@ -75,7 +75,7 @@ beforeEach(() => {
 
 })
 
-test('correct task should be deleted from correct array', () => {
+test("correct task should be deleted from correct array", () => {
 
     const action = removeTaskAC("2", "todolistId2");
 
@@ -140,7 +140,7 @@ test('correct task should be deleted from correct array', () => {
 
 });
 
-test('correct task should be added to correct array', () => {
+test("correct task should be added to correct array", () => {
 
     const action = addTaskAC({
         id: "3", title: "tea", status: TaskStatuses.New,
@@ -162,7 +162,7 @@ test('correct task should be added to correct array', () => {
     expect(endState["todolistId2"][0].status).toBe(TaskStatuses.New);
 })
 
-test('status of specified task should be changed', () => {
+test("status of specified task should be changed", () => {
 
     const action = updateTaskAC("2", {status: TaskStatuses.New}, "todolistId2");
 
@@ -172,7 +172,7 @@ test('status of specified task should be changed', () => {
     expect(endState["todolistId1"][1].status).toBe(TaskStatuses.Completed);
 });
 
-test('title of specified task should be changed', () => {
+test("title of specified task should be changed", () => {
 
     const action = updateTaskAC("2", {title: "yoyoyo"}, "todolistId2");
 
@@ -182,7 +182,7 @@ test('title of specified task should be changed', () => {
     expect(endState["todolistId1"][1].title).toBe("JS");
 });
 
-test('new array should be added when new todolist is added', () => {
+test("new array should be added when new todolist is added", () => {
 
     const action = AddTodoListAC({
         id: "blabla",
@@ -204,7 +204,7 @@ test('new array should be added when new todolist is added', () => {
 });
 
 
-test('property with todolistId should be deleted', () => {
+test("property with todolistId should be deleted", () => {
 
     const action = RemoveTodoListAC("todolistId2");
 

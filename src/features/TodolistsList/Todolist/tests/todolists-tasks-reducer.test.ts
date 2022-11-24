@@ -4,7 +4,7 @@ import {TaskStateType} from "../../../../app/App";
 import {TodoListType} from "../../../../api/todolist-api";
 
 
-test('is should be equals', () => {
+test("is should be equals", () => {
     const startTasksState: TaskStateType = {};
     const startTodolistsState: Array<TodoListDomainType> = [];
 
