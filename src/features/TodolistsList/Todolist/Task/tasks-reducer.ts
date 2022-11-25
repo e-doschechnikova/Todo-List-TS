@@ -2,6 +2,7 @@ import {AddTodoListAT, RemoveTodoListAT, SetTodoListAT} from "../todolists-reduc
 import {CreateTaskType, TaskType, todolistAPI, UpdateTasksModelType} from "../../../../api/todolist-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../../../api/store";
+import {setAppStatus, SetAppStatusType} from "../../../../app/app-reducer";
 
 const initialState: TaskStateType = {}
 
@@ -67,22 +68,28 @@ export const setTaskAC = (tasks: TaskType[], todolistID: string) => ({type: "SET
 
 ///----------- thunks creators -----------\\\
 export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatus("loading"))
     todolistAPI.getTasks(todolistID)
         .then((res) => {
             const tasks = res.data.items
             dispatch(setTaskAC(tasks, todolistID))
+            dispatch(setAppStatus("succeeded"))
         })
 }
 export const removeTaskTC = (taskID: string, todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatus("loading"))
     todolistAPI.deleteTasks(taskID, todolistID).then((res) => {
         if (res.data.resultCode === 0) {
             dispatch(removeTaskAC(taskID, todolistID))
+            dispatch(setAppStatus("succeeded"))
         }
     })
 }
 export const addTaskTC = (taskTitle: string, todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setAppStatus("loading"))
     todolistAPI.createTasks(todolistID, taskTitle).then((res) => {
         dispatch(addTaskAC(res.data.data.item))
+        dispatch(setAppStatus("succeeded"))
     })
 }
 export const updateTaskTC = (taskID: string, todolistID: string, domainModel: UpdateDomainTasksModelType) => (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
@@ -98,8 +105,10 @@ export const updateTaskTC = (taskID: string, todolistID: string, domainModel: Up
             ...domainModel
 
         }
+        dispatch(setAppStatus("loading"))
         todolistAPI.updateTasks(todolistID, taskID, apiModel).then((res) => {
             dispatch(updateTaskAC(taskID, domainModel, todolistID))
+            dispatch(setAppStatus("succeeded"))
         })
     }
 }
@@ -117,6 +126,7 @@ type ActionsType =
     | RemoveTodoListAT
     | SetTodoListAT
     | ReturnType<typeof setTaskAC>
+    | SetAppStatusType
 
 export type UpdateDomainTasksModelType = {
     title?: string

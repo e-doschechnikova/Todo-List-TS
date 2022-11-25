@@ -5,11 +5,13 @@ import {Menu} from "@material-ui/icons";
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 import {RequestStatusType} from "./app-reducer";
 import {useAppSelector} from "../api/store";
+import ErrorSnackbar from "../components/ErrorSnackbar/ErrorSnackbar";
 
 function App() {
     const status = useAppSelector<RequestStatusType>(state => state.app.status)
 
     return <div className="App">
+        <ErrorSnackbar/>
         <AppBar position={"static"} color={"transparent"}>
             <Toolbar style={{justifyContent: "space-between"}}>
                 <IconButton edge={"start"} color={"secondary"} aria-label={"menu"}>
