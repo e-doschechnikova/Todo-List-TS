@@ -2,7 +2,8 @@ import {AddTodoListAT, RemoveTodoListAT, SetTodoListAT} from "../todolists-reduc
 import {CreateTaskType, TaskType, todolistAPI, UpdateTasksModelType} from "../../../../api/todolist-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../../../api/store";
-import {setAppStatusAC, SetAppStatusType} from "../../../../app/app-reducer";
+import {setAppErrorAC, SetAppErrorType, setAppStatusAC, SetAppStatusType} from "../../../../app/app-reducer";
+import {AxiosError} from "axios";
 
 const initialState: TaskStateType = {}
 
@@ -88,9 +89,21 @@ export const removeTaskTC = (taskID: string, todolistID: string) => (dispatch: D
 export const addTaskTC = (taskTitle: string, todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC("loading"))
     todolistAPI.createTasks(todolistID, taskTitle).then((res) => {
-        dispatch(addTaskAC(res.data.data.item))
-        dispatch(setAppStatusAC("succeeded"))
+        if (res.data.resultCode === 0) {
+            dispatch(addTaskAC(res.data.data.item))
+            dispatch(setAppStatusAC("succeeded"))
+        } else if (res.data.messages.length) {
+            dispatch(setAppErrorAC(res.data.messages[0]))
+        } else {
+            dispatch(setAppErrorAC('Some error occurred'))
+        }
     })
+        .catch((error: AxiosError) => {
+            dispatch(setAppErrorAC(error.message))
+        })
+        .finally(() => {
+            dispatch(setAppStatusAC("idle"))
+        })
 }
 export const updateTaskTC = (taskID: string, todolistID: string, domainModel: UpdateDomainTasksModelType) => (dispatch: Dispatch<ActionsType>, getState: () => AppRootStateType) => {
     const task = getState().tasks[todolistID].find((t) => t.id === taskID)
@@ -127,6 +140,7 @@ type ActionsType =
     | SetTodoListAT
     | ReturnType<typeof setTaskAC>
     | SetAppStatusType
+    | SetAppErrorType
 
 export type UpdateDomainTasksModelType = {
     title?: string
