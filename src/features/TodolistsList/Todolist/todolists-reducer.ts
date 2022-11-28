@@ -60,31 +60,35 @@ export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusTy
 ///----------- thunks creators -----------\\\
 export const fetchTodolistsTC = () => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC("loading"))
-    todolistAPI.getTodolist().then((res) => {
-        dispatch(setTodolistsAC(res.data))
-        dispatch(setAppStatusAC("succeeded"))
-    })
+    todolistAPI.getTodolist()
+        .then((res) => {
+            dispatch(setTodolistsAC(res.data))
+            dispatch(setAppStatusAC("succeeded"))
+        })
 }
 export const removeTodolistTC = (todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC("loading"))
-    todolistAPI.deleteTodolist(todolistID).then((res) => {
-        dispatch(RemoveTodoListAC(todolistID))
-        dispatch(setAppStatusAC("succeeded"))
-    })
+    dispatch(changeTodolistEntityStatusAC(todolistID, "loading"))
+    todolistAPI.deleteTodolist(todolistID)
+        .then((res) => {
+            dispatch(RemoveTodoListAC(todolistID))
+            dispatch(setAppStatusAC("succeeded"))
+        })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC("loading"))
-    todolistAPI.createTodolist(title).then((res) => {
-        if (res.data.resultCode === 0) {
-            dispatch(AddTodoListAC(res.data.data.item))
-        } else {
-            if (res.data.messages.length) {
-                dispatch(setAppErrorAC(res.data.messages[0]))
+    todolistAPI.createTodolist(title)
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(AddTodoListAC(res.data.data.item))
             } else {
-                dispatch(setAppErrorAC('Some error occurred'))
+                if (res.data.messages.length) {
+                    dispatch(setAppErrorAC(res.data.messages[0]))
+                } else {
+                    dispatch(setAppErrorAC('Some error occurred'))
+                }
             }
-        }
-    })
+        })
         .catch((error: AxiosError) => {
             dispatch(setAppErrorAC(error.message))
         })

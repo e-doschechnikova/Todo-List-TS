@@ -79,25 +79,27 @@ export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch<ActionsT
 }
 export const removeTaskTC = (taskID: string, todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC("loading"))
-    todolistAPI.deleteTasks(taskID, todolistID).then((res) => {
-        if (res.data.resultCode === 0) {
-            dispatch(removeTaskAC(taskID, todolistID))
-            dispatch(setAppStatusAC("succeeded"))
-        }
-    })
+    todolistAPI.deleteTasks(taskID, todolistID)
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(removeTaskAC(taskID, todolistID))
+                dispatch(setAppStatusAC("succeeded"))
+            }
+        })
 }
 export const addTaskTC = (taskTitle: string, todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC("loading"))
-    todolistAPI.createTasks(todolistID, taskTitle).then((res) => {
-        if (res.data.resultCode === 0) {
-            dispatch(addTaskAC(res.data.data.item))
-            dispatch(setAppStatusAC("succeeded"))
-        } else if (res.data.messages.length) {
-            dispatch(setAppErrorAC(res.data.messages[0]))
-        } else {
-            dispatch(setAppErrorAC('Some error occurred'))
-        }
-    })
+    todolistAPI.createTasks(todolistID, taskTitle)
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(addTaskAC(res.data.data.item))
+                dispatch(setAppStatusAC("succeeded"))
+            } else if (res.data.messages.length) {
+                dispatch(setAppErrorAC(res.data.messages[0]))
+            } else {
+                dispatch(setAppErrorAC('Some error occurred'))
+            }
+        })
         .catch((error: AxiosError) => {
             dispatch(setAppErrorAC(error.message))
         })
@@ -119,10 +121,11 @@ export const updateTaskTC = (taskID: string, todolistID: string, domainModel: Up
 
         }
         dispatch(setAppStatusAC("loading"))
-        todolistAPI.updateTasks(todolistID, taskID, apiModel).then((res) => {
-            dispatch(updateTaskAC(taskID, domainModel, todolistID))
-            dispatch(setAppStatusAC("succeeded"))
-        })
+        todolistAPI.updateTasks(todolistID, taskID, apiModel)
+            .then((res) => {
+                dispatch(updateTaskAC(taskID, domainModel, todolistID))
+                dispatch(setAppStatusAC("succeeded"))
+            })
     }
 }
 
