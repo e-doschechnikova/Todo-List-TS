@@ -74,6 +74,9 @@ export const removeTodolistTC = (todolistID: string) => (dispatch: Dispatch<Acti
             dispatch(RemoveTodoListAC(todolistID))
             dispatch(setAppStatusAC("succeeded"))
         })
+        .catch(() => {
+            dispatch(changeTodolistEntityStatusAC(todolistID, "idle"))
+        })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC("loading"))
