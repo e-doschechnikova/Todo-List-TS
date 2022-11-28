@@ -30,6 +30,8 @@ export const todolistsReducer = (
             );
         case "SET-TODOLISTS":
             return action.todolists.map(el => ({...el, filter: "all", entityStatus: "idle"}))
+        case "SET-STATUS":
+            return state.map((tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl))
         default:
             return state;
     }
@@ -49,6 +51,11 @@ export const ChangeTodoListFilterAC = (id: string, filter: FilterValuesType) => 
     filter,
 } as const);
 export const setTodolistsAC = (todolists: TodoListType[]) => ({type: "SET-TODOLISTS", todolists} as const)
+export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusType) => ({
+    type: "SET-STATUS",
+    status,
+    id
+} as const)
 
 ///----------- thunks creators -----------\\\
 export const fetchTodolistsTC = () => (dispatch: Dispatch<ActionsType>) => {
@@ -103,6 +110,7 @@ type ActionsType =
     | AddTodoListAT
     | ReturnType<typeof ChangeTodoListFilterAC>
     | ReturnType<typeof ChangeTodoListTitleAC>
+    | ReturnType<typeof changeTodolistEntityStatusAC>
     | SetTodoListAT
     | SetAppStatusType
     | SetAppErrorType

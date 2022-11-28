@@ -66,6 +66,7 @@ export const TodolistsList = () => {
                         id={tl.id}
                         title={tl.title}
                         tasks={allTodolistTask}
+                        entityStatus={tl.entityStatus}
                         filter={tl.filter}
                         addTask={addTask}
                         removeTask={removeTask}

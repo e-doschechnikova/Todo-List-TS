@@ -8,6 +8,7 @@ import {FilterValuesType} from "./todolists-reducer";
 import {fetchTasksTC} from "./Task/tasks-reducer";
 import {useAppDispatch} from "../../../api/store";
 import {Task} from "./Task/Task";
+import {RequestStatusType} from "../../../app/app-reducer";
 
 export const TodoList = memo((props: TodoListPropsType) => {
 
@@ -43,7 +44,7 @@ export const TodoList = memo((props: TodoListPropsType) => {
         <div>
             <h3>
                 <EditableSpan title={props.title} changeTitle={changeTodoListTitle}/>
-                <IconButton>
+                <IconButton disabled={props.entityStatus === "loading"}>
                     <DeleteOutlineOutlined color={"primary"} onClick={removeTodolist}/>
                 </IconButton>
             </h3>
@@ -106,4 +107,5 @@ type TodoListPropsType = {
     changeTodoListFilter: (filter: FilterValuesType, todolistID: string) => void;
     changeTodoListTitle: (title: string, todolistID: string) => void;
     removeTodolist: (todolistID: string) => void;
+    entityStatus: RequestStatusType
 };
