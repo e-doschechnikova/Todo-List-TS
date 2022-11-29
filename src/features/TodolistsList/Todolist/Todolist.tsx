@@ -48,7 +48,7 @@ export const TodoList = memo((props: TodoListPropsType) => {
                     <DeleteOutlineOutlined color={"primary"} onClick={removeTodolist}/>
                 </IconButton>
             </h3>
-            <AddItemForm addItem={addTask}/>
+            <AddItemForm addItem={addTask} disabled={props.entityStatus === "loading"}/>
             <List style={{listStyle: "none"}}>
                 {taskJSX}
             </List>

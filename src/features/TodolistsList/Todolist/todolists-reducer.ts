@@ -8,6 +8,7 @@ import {
     SetAppStatusType
 } from "../../../app/app-reducer";
 import {AxiosError} from "axios";
+import {handleServerAppError, handleServerNetWorkError} from "../../../utils/error-utils";
 
 const initialState: Array<TodoListDomainType> = []
 
@@ -30,7 +31,7 @@ export const todolistsReducer = (
             );
         case "SET-TODOLISTS":
             return action.todolists.map(el => ({...el, filter: "all", entityStatus: "idle"}))
-        case "SET-STATUS":
+        case "SET-ENTITY-STATUS":
             return state.map((tl => tl.id === action.id ? {...tl, entityStatus: action.status} : tl))
         default:
             return state;
@@ -52,7 +53,7 @@ export const ChangeTodoListFilterAC = (id: string, filter: FilterValuesType) => 
 } as const);
 export const setTodolistsAC = (todolists: TodoListType[]) => ({type: "SET-TODOLISTS", todolists} as const)
 export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusType) => ({
-    type: "SET-STATUS",
+    type: "SET-ENTITY-STATUS",
     status,
     id
 } as const)
@@ -74,8 +75,9 @@ export const removeTodolistTC = (todolistID: string) => (dispatch: Dispatch<Acti
             dispatch(RemoveTodoListAC(todolistID))
             dispatch(setAppStatusAC("succeeded"))
         })
-        .catch(() => {
+        .catch((error: AxiosError) => {
             dispatch(changeTodolistEntityStatusAC(todolistID, "idle"))
+            handleServerNetWorkError(dispatch, error)
         })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>) => {
@@ -85,18 +87,11 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>
             if (res.data.resultCode === 0) {
                 dispatch(AddTodoListAC(res.data.data.item))
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppErrorAC(res.data.messages[0]))
-                } else {
-                    dispatch(setAppErrorAC('Some error occurred'))
-                }
+              handleServerAppError(dispatch, res.data)
             }
         })
         .catch((error: AxiosError) => {
-            dispatch(setAppErrorAC(error.message))
-        })
-        .finally(() => {
-            dispatch(setAppStatusAC("idle"))
+            handleServerNetWorkError(dispatch, error)
         })
 }
 export const ChangeTodoListTitleTC = (title: string, id: string) => (dispatch: Dispatch<ActionsType>) => {

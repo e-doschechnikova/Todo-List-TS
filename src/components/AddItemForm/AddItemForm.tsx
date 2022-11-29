@@ -34,6 +34,7 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
                 label={"Add title"}
                 error={error}
                 helperText={error && "Title is required!"}
+                disabled={props.disabled}
             />
             <IconButton color={"secondary"}>
                 <AddOutlined onClick={onClickAddItem}/>
@@ -45,4 +46,5 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
 ///----------- type -----------\\\
 type AddItemFormPropsType = {
     addItem: (title: string) => void;
+    disabled?: boolean
 };
