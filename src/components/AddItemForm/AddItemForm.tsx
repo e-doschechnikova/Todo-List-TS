@@ -2,7 +2,7 @@ import {IconButton, TextField} from "@material-ui/core";
 import {AddOutlined} from "@material-ui/icons";
 import React, {ChangeEvent, KeyboardEvent, memo, useState} from "react";
 
-export const AddItemForm = memo((props: AddItemFormPropsType) => {
+export const AddItemForm = memo(({addItem, disabled}: AddItemFormPropsType) => {
 
     const [title, setTitle] = React.useState<string>("");
     const [error, setError] = useState<boolean>(false);
@@ -16,7 +16,7 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
     const onClickAddItem = () => {
         const trimmedTitle = title.trim();
         if (trimmedTitle) {
-            props.addItem(trimmedTitle);
+            addItem(trimmedTitle);
         } else {
             setError(true);
         }
@@ -34,9 +34,9 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
                 label={"Add title"}
                 error={error}
                 helperText={error && "Title is required!"}
-                disabled={props.disabled}
+                disabled={disabled}
             />
-            <IconButton color={"secondary"}>
+            <IconButton color={"secondary"} disabled={disabled}>
                 <AddOutlined onClick={onClickAddItem}/>
             </IconButton>
         </div>

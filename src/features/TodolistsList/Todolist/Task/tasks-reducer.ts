@@ -108,10 +108,12 @@ export const addTaskTC = (taskTitle: string, todolistID: string) => (dispatch: D
             if (res.data.resultCode === ResultCode.OK) {
                 dispatch(addTaskAC(res.data.data.item))
                 dispatch(setAppStatusAC("succeeded"))
-            } else if (res.data.messages.length) {
-                dispatch(setAppErrorAC(res.data.messages[0]))
             } else {
-                handleServerAppError(dispatch, res.data)
+                if (res.data.messages.length) {
+                    dispatch(setAppErrorAC(res.data.messages[0]))
+                } else {
+                    handleServerAppError(dispatch, res.data)
+                }
             }
         })
         .catch((e: AxiosError) => {
@@ -138,8 +140,24 @@ export const updateTaskTC = (taskID: string, todolistID: string, domainModel: Up
         dispatch(setAppStatusAC("loading"))
         todolistAPI.updateTasks(todolistID, taskID, apiModel)
             .then((res) => {
-                dispatch(updateTaskAC(taskID, domainModel, todolistID))
-                dispatch(setAppStatusAC("succeeded"))
+                if (res.data.resultCode === 0) {
+                    dispatch(updateTaskAC(taskID, domainModel, todolistID))
+                    dispatch(setAppStatusAC("succeeded"))
+                } else {
+                    if (res.data.messages.length) {
+                        dispatch(setAppErrorAC(res.data.messages[0]))
+                    } else {
+                        handleServerAppError(dispatch, res.data)
+                    }
+                }
+
+            })
+            .catch((e: AxiosError) => {
+                const error = e.response ? (e.response.data as (_Error)).error : e.message
+                dispatch(setAppErrorAC(error))
+            })
+            .finally(() => {
+                dispatch(setAppStatusAC("idle"))
             })
     }
 }
@@ -172,5 +190,3 @@ export type UpdateDomainTasksModelType = {
 type _Error = {
     error: string
 }
-
-
