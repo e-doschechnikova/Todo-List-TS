@@ -4,7 +4,7 @@ import {Dispatch} from "redux";
 import {AppRootStateType} from "../../../../api/store";
 import {setAppErrorAC, SetAppErrorType, setAppStatusAC, SetAppStatusType} from "../../../../app/app-reducer";
 import axios, {AxiosError} from "axios";
-import {handleServerAppError} from "../../../../utils/error-utils";
+import {handleServerAppError, handleServerNetWorkError} from "../../../../utils/error-utils";
 
 const initialState: TaskStateType = {}
 
@@ -109,16 +109,11 @@ export const addTaskTC = (taskTitle: string, todolistID: string) => (dispatch: D
                 dispatch(addTaskAC(res.data.data.item))
                 dispatch(setAppStatusAC("succeeded"))
             } else {
-                if (res.data.messages.length) {
-                    dispatch(setAppErrorAC(res.data.messages[0]))
-                } else {
-                    handleServerAppError(dispatch, res.data)
-                }
+                handleServerAppError(dispatch, res.data)
             }
         })
-        .catch((e: AxiosError) => {
-            const error = e.response ? (e.response.data as (_Error)).error : e.message
-            dispatch(setAppErrorAC(error))
+        .catch((error: AxiosError) => {
+            handleServerNetWorkError(dispatch, error)
         })
         .finally(() => {
             dispatch(setAppStatusAC("idle"))
@@ -137,6 +132,7 @@ export const updateTaskTC = (taskID: string, todolistID: string, domainModel: Up
             ...domainModel
 
         }
+
         dispatch(setAppStatusAC("loading"))
         todolistAPI.updateTasks(todolistID, taskID, apiModel)
             .then((res) => {
@@ -144,17 +140,12 @@ export const updateTaskTC = (taskID: string, todolistID: string, domainModel: Up
                     dispatch(updateTaskAC(taskID, domainModel, todolistID))
                     dispatch(setAppStatusAC("succeeded"))
                 } else {
-                    if (res.data.messages.length) {
-                        dispatch(setAppErrorAC(res.data.messages[0]))
-                    } else {
-                        handleServerAppError(dispatch, res.data)
-                    }
+                    handleServerAppError(dispatch, res.data)
                 }
 
             })
-            .catch((e: AxiosError) => {
-                const error = e.response ? (e.response.data as (_Error)).error : e.message
-                dispatch(setAppErrorAC(error))
+            .catch((error: AxiosError) => {
+                handleServerNetWorkError(dispatch, error)
             })
             .finally(() => {
                 dispatch(setAppStatusAC("idle"))

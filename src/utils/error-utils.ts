@@ -3,7 +3,6 @@ import {Dispatch} from "redux"
 import {ResponseType} from "../api/todolist-api";
 
 
-
 ///----------- generic function -----------\\\
 export const handleServerAppError = <T>(dispatch: ErrorUtilsDispatchType, data: ResponseType<T>) => {
     if (data.messages.length) {
@@ -15,7 +14,7 @@ export const handleServerAppError = <T>(dispatch: ErrorUtilsDispatchType, data: 
 }
 
 export const handleServerNetWorkError = (dispatch: ErrorUtilsDispatchType, error: { message: string }) => {
-    dispatch(setAppErrorAC(error.message))
+    dispatch(setAppErrorAC(error.message ? error.message : "Some error occurred"))
     dispatch(setAppStatusAC("failed"))
 }
 
