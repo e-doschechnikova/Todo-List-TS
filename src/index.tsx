@@ -7,6 +7,7 @@ import {indigo, pink} from "@material-ui/core/colors";
 import App from "./app/App";
 import {Provider} from "react-redux";
 import {store} from "./api/store";
+import {BrowserRouter} from "react-router-dom";
 
 const theme = createTheme({
     palette: {
@@ -19,7 +20,9 @@ const theme = createTheme({
 ReactDOM.render(
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-            <App/>
+            <BrowserRouter>
+                <App/>
+            </BrowserRouter>
         </ThemeProvider>
     </Provider>, document.getElementById("root")
 );
