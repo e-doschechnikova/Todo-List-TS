@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Grid from '@mui/material/Grid';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
@@ -13,11 +13,16 @@ import {loginTC} from "./auth-reducer";
 import {useSelector} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {ROUTS} from "../../api/todolist-api";
+import {setAppStatusAC} from "../../app/app-reducer";
 
 export const Login = () => {
 
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
+    useEffect(() => {
+        dispatch(setAppStatusAC("succeeded"))
+    }, [])
 
     const formik = useFormik({
         initialValues: {

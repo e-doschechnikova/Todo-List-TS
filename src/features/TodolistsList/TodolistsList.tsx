@@ -10,14 +10,16 @@ import {
 } from "./Todolist/todolists-reducer";
 import {AppRootStateType, useAppDispatch} from "../../api/store";
 import {addTaskTC, removeTaskTC, TaskStateType, updateTaskTC} from "./Todolist/Task/tasks-reducer";
-import {TaskStatuses} from "../../api/todolist-api";
+import {ROUTS, TaskStatuses} from "../../api/todolist-api";
 import {Grid, Paper} from "@material-ui/core";
 import {TodoList} from "./Todolist/Todolist";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
+import {Navigate} from "react-router-dom";
 
 export const TodolistsList = () => {
 
     const dispatch = useAppDispatch()
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
     useEffect(() => {
         dispatch(fetchTodolistsTC())
@@ -78,6 +80,10 @@ export const TodolistsList = () => {
             </Grid>
         );
     });
+
+    if (!isLoggedIn) {
+        return <Navigate to={ROUTS.LOGIN}/>
+    }
 
     return (
         <>

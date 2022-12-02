@@ -66,6 +66,9 @@ export const fetchTodolistsTC = () => (dispatch: Dispatch<ActionsType>) => {
             dispatch(setTodolistsAC(res.data))
             dispatch(setAppStatusAC("succeeded"))
         })
+        .catch(() => {
+            dispatch(setAppStatusAC("failed"))
+        })
 }
 export const removeTodolistTC = (todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC("loading"))
@@ -79,6 +82,9 @@ export const removeTodolistTC = (todolistID: string) => (dispatch: Dispatch<Acti
             dispatch(changeTodolistEntityStatusAC(todolistID, "idle"))
             handleServerNetWorkError(dispatch, error)
         })
+        .finally(() => {
+            dispatch(setAppStatusAC("idle"))
+        })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC("loading"))
@@ -87,7 +93,7 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>
             if (res.data.resultCode === 0) {
                 dispatch(AddTodoListAC(res.data.data.item))
             } else {
-              handleServerAppError(dispatch, res.data)
+                handleServerAppError(dispatch, res.data)
             }
         })
         .catch((error: AxiosError) => {

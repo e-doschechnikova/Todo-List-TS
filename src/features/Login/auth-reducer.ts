@@ -27,7 +27,6 @@ export const loginTC = (data: LoginDataType) => async (dispatch: Dispatch<Action
     dispatch(setAppStatusAC("loading"))
     try {
         const response = await authAPI.login(data)
-
         if (response.data.resultCode === ResultCode.OK) {
             dispatch(setIsLoggedInAC(true))
             dispatch(setAppStatusAC("succeeded"))
