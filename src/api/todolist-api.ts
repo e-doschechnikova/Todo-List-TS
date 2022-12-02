@@ -1,4 +1,5 @@
 import axios, {AxiosResponse} from "axios"
+import {LoginDataType} from "../features/Login/Login";
 
 const instance = axios.create({
     baseURL: "https://social-network.samuraijs.com/api/1.1/",
@@ -11,22 +12,18 @@ const instance = axios.create({
 ///----------- api -----------\\\
 export const todolistAPI = {
     getTodolist() {
-        const promise = instance.get<TodoListType[]>("todo-lists")
-        return promise
+        return instance.get<TodoListType[]>("todo-lists")
     },
     createTodolist(title: string) {
-        const promise = instance.post<ResponseType<{ item: TodoListType }>>("todo-lists", {title: title})
-        return promise
+        return instance.post<ResponseType<{ item: TodoListType }>>("todo-lists", {title: title})
     },
     deleteTodolist(todolistId: string) {
-        const promise = instance.delete<ResponseType>(`todo-lists/${todolistId}`)
-        return promise
+        return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
     },
     updateTodolist(todolistId: string, title: string) {
-        const promise = instance.put<ResponseType<{ title: string }>>(
+        return instance.put<ResponseType<{ title: string }>>(
             `todo-lists/${todolistId}`,
             {title: title})
-        return promise
     },
     getTasks(todolistID: string) {
         return instance.get<GetTasksResponse>(
@@ -42,6 +39,11 @@ export const todolistAPI = {
     updateTasks(todolistID: string, taskID: string, model: UpdateTasksModelType) {
         return instance.put<ResponseType>(
             `todo-lists/${todolistID}/tasks/${taskID}`, model)
+    }
+}
+export const authAPI = {
+    login(data: LoginDataType) {
+        return instance.post<LoginDataType, AxiosResponse<ResponseType<{ userId: string }>>>(`auth/login`, data);
     }
 }
 
@@ -77,8 +79,15 @@ export enum TaskPriorities {
 export enum ResultCode {
     OK = 0,
     ERROR = 1,
-    CAPTCHA10
+    CAPTCHA = 10
 }
+
+export enum ROUTS {
+    DEFAULT = "/",
+    LOGIN = "login",
+    NOT_FOUND = "404"
+}
+
 export type TaskType = {
     description: string
     title: string
@@ -116,3 +125,4 @@ export type UpdateTasksModelType = {
     startDate: string
     deadline: string
 }
+

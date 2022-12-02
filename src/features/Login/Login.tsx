@@ -8,16 +8,25 @@ import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useFormik} from "formik";
+import {AppRootStateType, useAppDispatch} from "../../api/store";
+import {loginTC} from "./auth-reducer";
+import {useSelector} from "react-redux";
+import {Navigate} from "react-router-dom";
+import {ROUTS} from "../../api/todolist-api";
 
 export const Login = () => {
 
+    const dispatch = useAppDispatch()
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+
     const formik = useFormik({
         initialValues: {
-            email: '',
-            password: '',
-            rememberMe: false
+            email: "",
+            password: "",
+            rememberMe: false,
+            captcha: ""
         },
-        validate: (values) => {
+        validate: (values: LoginDataType) => {
             const errors: FormikErrorType = {}
             if (!values.email) {
                 errors.email = 'Required'
@@ -32,10 +41,15 @@ export const Login = () => {
             }
             return errors
         },
-        onSubmit: values => {
-            alert(JSON.stringify(values));
+        onSubmit: (values: LoginDataType) => {
+            dispatch(loginTC(values))
+            formik.resetForm()
         },
     })
+
+    if (isLoggedIn) {
+        return <Navigate to={ROUTS.DEFAULT}/>
+    }
 
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
@@ -52,33 +66,27 @@ export const Login = () => {
                         <p>Password: free</p>
                     </FormLabel>
                     <FormGroup>
-                        <TextField label="Email"
-                                   name={"email"}
-                                   margin="normal"
-                                   onChange={formik.handleChange}
-                                   value={formik.values.email}
-                                   onBlur={formik.handleBlur}/>
+                        <TextField {...formik.getFieldProps("email")}
+                                   label="Email"
+                                   margin="normal"/>
                         {formik.errors.email &&
                             <div style={{color: "red"}}>
                                 {formik.touched.email && formik.errors.email}
                             </div>}
-                        <TextField type="password"
+                        <TextField {...formik.getFieldProps("password")}
+                                   type="password"
                                    label="Password"
-                                   name={"password"}
                                    margin="normal"
-                                   onChange={formik.handleChange}
-                                   value={formik.values.password}
-                                   onBlur={formik.handleBlur}
+
                         />
                         {formik.touched.password && formik.errors.password &&
                             <div style={{color: "red"}}>
                                 {formik.errors.password}
                             </div>}
                         <FormControlLabel label={'Remember me'}
-                                          name={"rememberMe"}
-                                          control={<Checkbox/>}
-                                          onChange={formik.handleChange}
-                                          checked={formik.values.rememberMe}/>
+                                          control={<Checkbox {...formik.getFieldProps("rememberMe")}
+                                                             checked={formik.values.rememberMe}/>}
+                        />
                         <Button type={'submit'} variant={'outlined'} color={'secondary'}>
                             Login
                         </Button>
@@ -93,5 +101,10 @@ export const Login = () => {
 type FormikErrorType = {
     email?: string
     password?: string
-    rememberMe?: boolean
+}
+export type LoginDataType = {
+    email: string
+    password: string,
+    rememberMe: boolean,
+    captcha: string
 }
