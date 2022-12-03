@@ -33,8 +33,3 @@
 <img src="https://github.com/e-doschechnikova/Todo-List-TS/blob/main/src/intro-project/filter%20(active).png?raw=true" />
     
   </div>
-  
-
-
-
-
