@@ -2,7 +2,6 @@ import {todolistAPI, TodoListType} from "../../../api/todolist-api";
 import {Dispatch} from "redux";
 import {
     RequestStatusType,
-    setAppErrorAC,
     SetAppErrorType,
     setAppStatusAC,
     SetAppStatusType
@@ -60,34 +59,34 @@ export const changeTodolistEntityStatusAC = (id: string, status: RequestStatusTy
 
 ///----------- thunks creators -----------\\\
 export const fetchTodolistsTC = () => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
+    dispatch(setAppStatusAC({status: "loading"}))
     todolistAPI.getTodolist()
         .then((res) => {
             dispatch(setTodolistsAC(res.data))
-            dispatch(setAppStatusAC("succeeded"))
+            dispatch(setAppStatusAC({status: "succeeded"}))
         })
         .catch(() => {
-            dispatch(setAppStatusAC("failed"))
+            dispatch(setAppStatusAC({status: "failed"}))
         })
 }
 export const removeTodolistTC = (todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
+    dispatch(setAppStatusAC({status: "loading"}))
     dispatch(changeTodolistEntityStatusAC(todolistID, "loading"))
     todolistAPI.deleteTodolist(todolistID)
         .then((res) => {
             dispatch(RemoveTodoListAC(todolistID))
-            dispatch(setAppStatusAC("succeeded"))
+            dispatch(setAppStatusAC({status: "succeeded"}))
         })
         .catch((error: AxiosError) => {
             dispatch(changeTodolistEntityStatusAC(todolistID, "idle"))
             handleServerNetWorkError(dispatch, error)
         })
         .finally(() => {
-            dispatch(setAppStatusAC("idle"))
+            dispatch(setAppStatusAC({status: "idle"}))
         })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
+    dispatch(setAppStatusAC({status: "loading"}))
     todolistAPI.createTodolist(title)
         .then((res) => {
             if (res.data.resultCode === 0) {
@@ -101,10 +100,10 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch<ActionsType>
         })
 }
 export const ChangeTodoListTitleTC = (title: string, id: string) => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC("loading"))
+    dispatch(setAppStatusAC({status: "loading"}))
     todolistAPI.updateTodolist(id, title).then((res) => {
         dispatch(ChangeTodoListTitleAC(title, id))
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatusAC({status: "succeeded"}))
     })
 }
 

@@ -7,7 +7,7 @@ export function Error404() {
 
     const dispatch = useAppDispatch()
     useEffect(() => {
-        dispatch(setAppStatusAC("succeeded"))
+        dispatch(setAppStatusAC({status: "succeeded"}))
     }, [])
 
     return (
