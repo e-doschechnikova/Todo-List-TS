@@ -2,10 +2,11 @@ import React, {useCallback, useEffect} from "react";
 import {useSelector} from "react-redux";
 import {
     addTodolistTC,
-    ChangeTodoListFilterAC,
-    ChangeTodoListTitleTC,
+    changeTodoListFilterAC,
+    changeTodoListTitleTC,
     fetchTodolistsTC,
-    FilterValuesType, removeTodolistTC,
+    FilterValuesType,
+    removeTodolistTC,
     TodoListDomainType
 } from "./Todolist/todolists-reducer";
 import {AppRootStateType, useAppDispatch} from "../../api/store";
@@ -46,11 +47,11 @@ export const TodolistsList = () => {
 
     ///----------- todolists -----------\\\
     const changeTodoListTitle = useCallback((title: string, todolistID: string) => {
-        let thunk = ChangeTodoListTitleTC(title, todolistID)
+        let thunk = changeTodoListTitleTC(title, todolistID)
         dispatch(thunk)
     }, [dispatch]);
     const changeTodoListFilter = useCallback((filter: FilterValuesType, todolistID: string) => {
-        dispatch(ChangeTodoListFilterAC(todolistID, filter))
+        dispatch(changeTodoListFilterAC({id: todolistID, filter: filter}))
     }, [dispatch]);
     const removeTodolist = useCallback((todolistID: string) => {
         let thunk = removeTodolistTC(todolistID)

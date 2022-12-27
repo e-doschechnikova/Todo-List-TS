@@ -59,7 +59,6 @@ export const TodoList = memo((props: TodoListPropsType) => {
                     color={props.todolist.filter === "all" ? "secondary" : "primary"}
                     onClick={createOnClickHandler("all")}
                     style={{margin: "5px"}}
-                    /* onClick={() => props.changeTodoListFilter("all", props.id)}*/
                 >
                     All
                 </Button>
