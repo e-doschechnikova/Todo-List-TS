@@ -18,7 +18,7 @@ export const slice = createSlice({
             }
         },
         addTodoListAC(state, action: PayloadAction<{ todolist: TodoListType }>) {
-            state.push({...action.payload.todolist, filter: "all", entityStatus: "idle"}, ...state)
+            state.unshift({...action.payload.todolist, filter: "all", entityStatus: "idle"}, ...state)
         },
         changeTodoListTitleAC(state, action: PayloadAction<{ title: string, id: string }>) {
             const index = state.findIndex(tl => tl.id === action.payload.id)
@@ -32,9 +32,12 @@ export const slice = createSlice({
             const index = state.findIndex(tl => tl.id === action.payload.id)
             state[index].entityStatus = action.payload.status
         },
-        setTodolistsAC(state, action: PayloadAction<{ todolists: TodoListType[] }>) {
-            state = action.payload.todolists.map(tl => ({...tl, filter: "all", entityStatus: "idle"}))
+        setTodolistsAC(state, action: PayloadAction<{ todolists: Array<TodoListType> }>) {
+           return action.payload.todolists.map(tl => ({...tl, filter: "all", entityStatus: "idle"}))
         }
+    },
+    extraReducers: {
+
     }
 })
 export const todolistsReducer = slice.reducer

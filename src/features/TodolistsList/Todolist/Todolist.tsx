@@ -39,7 +39,7 @@ export const TodoList = memo((props: TodoListPropsType) => {
                                         changeTaskTitle={props.changeTaskTitle}
                                         changeTaskStatus={props.changeTaskStatus}
         />) : <span>I"m empty! Fill me up! <b>㋡</b></span>
-
+    // console.log("->", tasksForTodolist)
     return (
         <div>
             <h3>
