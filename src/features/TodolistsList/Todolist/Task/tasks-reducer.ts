@@ -6,7 +6,7 @@ import {
     SetTodoListAT,
     setTodolistsAC
 } from "../todolists-reducer";
-import {CreateTaskType, ResultCode, TaskType, todolistAPI, UpdateTasksModelType} from "../../../../api/todolist-api";
+import {TaskType, ResultCode, todolistAPI, UpdateTasksModelType} from "../../../../api/todolist-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../../../api/store";
 import {setAppErrorAC, SetAppErrorType, setAppStatusAC, SetAppStatusType} from "../../../../app/app-reducer";
@@ -27,8 +27,7 @@ const slice = createSlice({
                 tasks.splice(index, 1)
             }
         },
-        addTaskAC(state, action: PayloadAction<{ task: CreateTaskType }>) {
-            //debugger
+        addTaskAC(state, action: PayloadAction<{ task: TaskType }>) {
             state[action.payload.task.todoListId].unshift(action.payload.task)
         },
         updateTaskAC(state, action: PayloadAction<{ taskID: string, model: UpdateDomainTasksModelType, todolistID: string }>) {
@@ -59,13 +58,6 @@ const slice = createSlice({
 
 export const tasksReducer = slice.reducer
 
-
-// case "ADD-TASK": {
-//     return {
-//         ...state,
-//         [action.task.todoListId]: [action.task, ...state[action.task.todoListId]]
-//     } as TaskStateType
-// }
 export const {removeTaskAC, addTaskAC, updateTaskAC, setTaskAC} = slice.actions
 
 ///----------- thunks creators -----------\\\
