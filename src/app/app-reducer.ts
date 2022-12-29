@@ -28,7 +28,6 @@ export const {setAppStatusAC, setAppErrorAC, setIsInitializedAppAC} = slice.acti
 
 ///----------- type -----------\\\
 export type RequestStatusType = "idle" | "loading" | "succeeded" | "failed"
-type InitialStateType = typeof initialState
 export type SetAppStatusType = ReturnType<typeof setAppStatusAC>
 export type SetAppErrorType = ReturnType<typeof setAppErrorAC>
 

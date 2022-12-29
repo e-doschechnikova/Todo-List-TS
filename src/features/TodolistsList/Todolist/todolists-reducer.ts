@@ -4,6 +4,7 @@ import {RequestStatusType, setAppStatusAC,} from "../../../app/app-reducer";
 import {AxiosError} from "axios";
 import {handleServerAppError, handleServerNetWorkError} from "../../../utils/error-utils";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {initializeAppTC} from "../../Login/auth-reducer";
 
 const initialState: Array<TodoListDomainType> = []
 
@@ -37,7 +38,6 @@ export const slice = createSlice({
         }
     },
     extraReducers: {
-
     }
 })
 export const todolistsReducer = slice.reducer

@@ -14,8 +14,6 @@ const rootReducer = combineReducers({
     auth: authReducer
 })
 
-// export const store = legacy_createStore(rootReducer, applyMiddleware(thunk));
-
 export const store = configureStore({
     reducer: rootReducer,
     middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk)
