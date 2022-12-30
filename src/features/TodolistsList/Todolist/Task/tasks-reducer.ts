@@ -1,15 +1,8 @@
-import {
-    addTodoListAC,
-    AddTodoListAT,
-    removeTodoListAC,
-    RemoveTodoListAT,
-    SetTodoListAT,
-    setTodolistsAC
-} from "../todolists-reducer";
+import {addTodoListAC, removeTodoListAC, setTodolistsAC} from "../todolists-reducer";
 import {TaskType, ResultCode, todolistAPI, UpdateTasksModelType} from "../../../../api/todolist-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../../../api/store";
-import {setAppErrorAC, SetAppErrorType, setAppStatusAC, SetAppStatusType} from "../../../../app/app-reducer";
+import {setAppErrorAC, setAppStatusAC} from "../../../../app/app-reducer";
 import axios, {AxiosError} from "axios";
 import {handleServerAppError, handleServerNetWorkError} from "../../../../utils/error-utils";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
@@ -61,7 +54,7 @@ export const tasksReducer = slice.reducer
 export const {removeTaskAC, addTaskAC, updateTaskAC, setTaskAC} = slice.actions
 
 ///----------- thunks creators -----------\\\
-export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch<ActionsType>) => {
+export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}))
     todolistAPI.getTasks(todolistID)
         .then((res) => {
@@ -70,7 +63,7 @@ export const fetchTasksTC = (todolistID: string) => (dispatch: Dispatch<ActionsT
             dispatch(setAppStatusAC({status: "succeeded"}))
         })
 }
-export const removeTaskTC = (taskID: string, todolistID: string) => async (dispatch: Dispatch<ActionsType>) => {
+export const removeTaskTC = (taskID: string, todolistID: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatusAC({status: "loading"}))
         await todolistAPI.deleteTasks(taskID, todolistID)
@@ -143,17 +136,6 @@ export const updateTaskTC = (taskID: string, todolistID: string, model: UpdateDo
 export type TaskStateType = {
     [todolistID: string]: Array<TaskType>;
 };
-
-type ActionsType =
-    ReturnType<typeof removeTaskAC>
-    | ReturnType<typeof addTaskAC>
-    | ReturnType<typeof updateTaskAC>
-    | AddTodoListAT
-    | RemoveTodoListAT
-    | SetTodoListAT
-    | ReturnType<typeof setTaskAC>
-    | SetAppStatusType
-    | SetAppErrorType
 
 export type UpdateDomainTasksModelType = {
     title?: string

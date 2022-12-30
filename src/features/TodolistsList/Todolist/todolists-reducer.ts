@@ -4,7 +4,6 @@ import {RequestStatusType, setAppStatusAC,} from "../../../app/app-reducer";
 import {AxiosError} from "axios";
 import {handleServerAppError, handleServerNetWorkError} from "../../../utils/error-utils";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {initializeAppTC} from "../../Login/auth-reducer";
 
 const initialState: Array<TodoListDomainType> = []
 
@@ -34,11 +33,10 @@ export const slice = createSlice({
             state[index].entityStatus = action.payload.status
         },
         setTodolistsAC(state, action: PayloadAction<{ todolists: Array<TodoListType> }>) {
-           return action.payload.todolists.map(tl => ({...tl, filter: "all", entityStatus: "idle"}))
+            return action.payload.todolists.map(tl => ({...tl, filter: "all", entityStatus: "idle"}))
         }
     },
-    extraReducers: {
-    }
+    extraReducers: {}
 })
 export const todolistsReducer = slice.reducer
 export const {
@@ -66,7 +64,7 @@ export const removeTodolistTC = (todolistID: string) => (dispatch: Dispatch) => 
     dispatch(setAppStatusAC({status: "loading"}))
     dispatch(changeTodolistEntityStatusAC({id: todolistID, status: "loading"}))
     todolistAPI.deleteTodolist(todolistID)
-        .then((res) => {
+        .then(() => {
             dispatch(removeTodoListAC({id: todolistID}))
             dispatch(setAppStatusAC({status: "succeeded"}))
         })
@@ -94,17 +92,13 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
 }
 export const changeTodoListTitleTC = (title: string, id: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatusAC({status: "loading"}))
-    todolistAPI.updateTodolist(id, title).then((res) => {
+    todolistAPI.updateTodolist(id, title).then(() => {
         dispatch(changeTodoListTitleAC({title: title, id: id}))
         dispatch(setAppStatusAC({status: "succeeded"}))
     })
 }
 
 ///----------- types -----------\\\
-export type AddTodoListAT = ReturnType<typeof addTodoListAC>
-export type RemoveTodoListAT = ReturnType<typeof removeTodoListAC>
-export type SetTodoListAT = ReturnType<typeof setTodolistsAC>
-
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodoListDomainType = TodoListType & {
     filter: FilterValuesType,
