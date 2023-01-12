@@ -42,15 +42,14 @@ function App() {
                     <Menu/>
                 </IconButton>
                 <Typography variant="h5">Todolists</Typography>
-                {isLoggedIn && <Button onClick={logOut} color={"secondary"} variant={"outlined"} >Log out</Button>}
+                {isLoggedIn && <Button onClick={logOut} color={"secondary"} variant={"outlined"}>Log out</Button>}
             </Toolbar>
             {status === "loading" && <LinearProgress color={"secondary"}/>}
         </AppBar>
         <Container fixed>
             <Routes>
-                <Route path={"/"} element={<TodolistsList/>}/>
-                <Route path={"login"} element={<Login/>}/>
-
+                <Route path={"/*"} element={<TodolistsList/>}/>
+                <Route path={"/login"} element={<Login/>}/>
                 <Route path={"*"} element={<Navigate to={"/404"}/>}/>
                 <Route path={"/404"} element={<Error404/>}/>
             </Routes>
