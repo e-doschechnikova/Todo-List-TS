@@ -1,11 +1,9 @@
 
 <div align="center">
 
-# Мой проект разработан на React + TS.
-# My project developed in React + TS.
+# Мой проект разработан на React + TS. <br/> My project developed in React + TS.
 
-## Проект выполнен по аналогии с проектом «Trello», который предназначен для управления проектами, рабочими процессами и задачами любого типа.
-## The project is made by analogy with the "Trello" project, which is designed to manage projects, workflows and tasks of any type.
+## Проект выполнен по аналогии с проектом «Trello», который предназначен для управления проектами, рабочими процессами и задачами любого типа. <br/> The project is made by analogy with the "Trello" project, which is designed to manage projects, workflows and tasks of any type.
 
 ### Разработка Todo list (TS, React< Redux, Axios, Formik):
 ### Todo list development (TS, React< Redux, Axios, Formik):
@@ -23,10 +21,7 @@
 </div>
   <div align="center">
   
-## как запустить проект?
-## how to start the project?
-  
-## `yarn start`
+## как запустить проект? <br/> how to start the project? <br/> `yarn start`
 
 <img src="https://raw.githubusercontent.com/e-doschechnikova/Todo-List-TS/main/src/intro-project/main%20todo.png" /> 
 <img src="https://raw.githubusercontent.com/e-doschechnikova/Todo-List-TS/main/src/intro-project/login.png" />
